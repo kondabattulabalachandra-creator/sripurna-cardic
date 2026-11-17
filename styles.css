@@ -1354,3 +1354,27 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   .doctor-profile-photo { max-width: 420px; margin-inline: auto; }
   .doctor-profile-photo img { max-height: 480px; }
 }
+
+@media (max-width: 767px) {
+  .hero-grid {
+    grid-template-areas:
+      "photo"
+      "content";
+  }
+
+  .hero-media {
+    grid-area: photo;
+    animation: hero-photo-enter 600ms ease-out both;
+  }
+
+  .hero-content { grid-area: content; }
+}
+
+@keyframes hero-photo-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media { animation: none; }
+}
