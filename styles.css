@@ -1238,3 +1238,68 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* Mobile navigation and layout safeguards */
+.menu-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 0 0 44px;
+}
+
+.nav { display: none; }
+
+.nav.open {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0.5rem 1.5rem 1rem;
+  background: var(--color-bg-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+.nav.open > a {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav.open > a:last-child { border-bottom: 0; }
+
+.education-image {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .menu-toggle { display: none; }
+  .nav { display: flex; }
+  .nav.open {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .nav.open > a { padding: var(--space-2) 0; border: 0; }
+}
+
+@media (max-width: 420px) {
+  :root { --container-padding: 1rem; }
+  .brand-logo { width: 132px; }
+  .hero-bottom { grid-template-columns: 1fr; }
+  .hero-bottom a { justify-self: start; }
+  .visit-copy, .appointment-card { padding: var(--space-4); }
+}
+
+@media (min-width: 1024px) {
+  /* The doctor section contains one content column; avoid an unused grid track. */
+  .doctor-grid { grid-template-columns: minmax(0, 1fr); }
+}
