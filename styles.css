@@ -1300,6 +1300,57 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 }
 
 @media (min-width: 1024px) {
-  /* The doctor section contains one content column; avoid an unused grid track. */
-  .doctor-grid { grid-template-columns: minmax(0, 1fr); }
+  .doctor-grid { grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr); }
+}
+
+
+/* Doctor profile visibility and readable credentials */
+.hero-credentials {
+  margin: -0.5rem 0 var(--space-4);
+  color: var(--color-navy);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.doctor-grid {
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+  align-items: start;
+}
+
+.doctor-profile-photo {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-white);
+  box-shadow: var(--shadow);
+}
+
+.doctor-profile-photo img {
+  width: 100%;
+  max-height: 620px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.doctor-profile-photo figcaption {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.doctor-visit {
+  padding: var(--space-4);
+  border-left: 3px solid var(--color-brand);
+  background: var(--color-bg-white);
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.doctor-visit strong { color: var(--color-navy); }
+
+@media (max-width: 767px) {
+  .doctor-grid { grid-template-columns: 1fr; }
+  .doctor-profile-photo { max-width: 420px; margin-inline: auto; }
+  .doctor-profile-photo img { max-height: 480px; }
 }
