@@ -656,13 +656,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   font-size: var(--text-sm);
 }
 
-.image-credit {
-  margin-top: var(--space-2);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  line-height: 1.4;
-}
-
 /* 11. Doctor Section */
 .doctor-section {
   background: var(--color-bg-white);
