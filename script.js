@@ -28,62 +28,58 @@ if (menuToggle && primaryNav) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-/* Appointment form modal -> WhatsApp */
+/* Appointment form (contact section) -> WhatsApp */
 (function () {
-  const modal = document.getElementById('appointmentModal');
-  const backdrop = document.getElementById('modalBackdrop');
-  const closeBtn = document.getElementById('modalClose');
-  const openBtn = document.getElementById('openAppointmentForm');
   const form = document.getElementById('appointmentForm');
+  if (!form) return;
 
-  if (!modal || !form) return;
+  const status = document.getElementById('formStatus');
 
-  function openModal() {
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    modal.setAttribute('aria-hidden', 'false');
-  }
-  function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-    modal.setAttribute('aria-hidden', 'true');
-  }
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
 
-  if (openBtn) openBtn.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (backdrop) backdrop.addEventListener('click', closeModal);
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
-  });
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const fd = new FormData(form);
-    const name = fd.get('patientName') || '';
-    const phone = fd.get('patientPhone') || '';
-    const age = fd.get('patientAge') || '';
-    const gender = fd.get('patientGender') || 'Not specified';
-    const problem = fd.get('heartProblem') || '';
-    const address = fd.get('patientAddress') || 'Not provided';
-    const message = fd.get('patientMessage') || 'None provided';
+    const data = new FormData(form);
+    const name = data.get('patientName') || '';
+    const phone = data.get('patientPhone') || '';
+    const age = data.get('patientAge') || '';
+    const gender = data.get('patientGender') || 'Not specified';
+    const problem = data.get('heartProblem') || '';
+    const address = data.get('patientAddress') || 'Not provided';
+    const details = data.get('patientMessage') || 'None provided';
 
     const text = [
       '*New Appointment Request – Sri Purna Cardiac Care*',
       '',
-      '👤 *Patient Name:* ' + name,
-      '📞 *Phone:* ' + phone,
-      '🎂 *Age:* ' + age,
-      '⚧ *Gender:* ' + gender,
-      '❤️ *Heart Problem:* ' + problem,
-      '📍 *Address:* ' + address,
-      '📝 *Additional Details:* ' + message,
+      'Patient Name: ' + name,
+      'Phone: ' + phone,
+      'Age: ' + age,
+      'Gender: ' + gender,
+      'Heart Problem: ' + problem,
+      'Address: ' + address,
+      'Additional Details: ' + details,
       '',
       'Please confirm appointment slot.'
     ].join('\n');
 
-    window.open('https://wa.me/917013092422?text=' + encodeURIComponent(text), '_blank');
-    closeModal();
+    const url = 'https://wa.me/917013092422?text=' + encodeURIComponent(text);
+    const opened = window.open(url, '_blank', 'noopener');
+
+    if (!opened) {
+      window.location.href = url;
+      return;
+    }
+
+    if (status) {
+      status.textContent =
+        'Thank you. Your request has been prepared in WhatsApp — please press send there to deliver it to the clinic.';
+      status.classList.add('is-visible');
+    }
+
     form.reset();
   });
 })();
