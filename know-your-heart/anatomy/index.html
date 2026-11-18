@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173653">
+  <meta name="robots" content="index,follow">
+  <title>Heart Anatomy and Blood Flow | Know Your Heart</title>
+  <meta name="description" content="Explore the heart’s chambers, valves and major blood vessels, then follow the path of blood through the heart and lungs.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Heart Anatomy and Blood Flow | Know Your Heart">
+  <meta property="og:description" content="A patient-friendly, interactive guide to the heart’s main structures and circulation.">
+  <link rel="stylesheet" href="../../styles.css">
+  <link rel="stylesheet" href="../education.css">
+</head>
+<body class="education-site">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="education-header">
+    <div class="edu-shell edu-header-row">
+      <a class="edu-brand" href="../../" aria-label="Sri Purna Cardiac Care home">
+        <img src="../../images/sri-purna-cardiac-care-logo-user.webp" width="768" height="540" alt="Sri Purna Cardiac Care">
+      </a>
+      <nav class="edu-nav" aria-label="Education navigation">
+        <a href="../">Know Your Heart</a>
+        <a href="../../">Clinic home</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <nav class="edu-breadcrumb edu-shell" aria-label="Breadcrumb">
+      <a href="../../">Clinic home</a><span aria-hidden="true">/</span><a href="../">Know Your Heart</a><span aria-hidden="true">/</span><span aria-current="page">Anatomy and circulation</span>
+    </nav>
+
+    <section class="edu-page-hero">
+      <div class="edu-shell">
+        <p class="edu-eyebrow">Explore the heart</p>
+        <h1>Heart anatomy, made easier to explore</h1>
+        <p class="edu-lead">Choose a structure name below; on wide screens, you can also use numbered points on the illustration. Then follow the path blood takes through the heart and lungs.</p>
+        <p class="edu-draft-label"><span aria-hidden="true">●</span> Patient-education draft · awaiting Dr. Srikanth Nakka’s review</p>
+      </div>
+    </section>
+
+    <section class="edu-section anatomy-section" aria-labelledby="anatomy-heading">
+      <div class="edu-shell">
+        <div class="edu-section-heading anatomy-heading">
+          <p class="edu-eyebrow">15 structures · simple explanations</p>
+          <h2 id="anatomy-heading">Explore the main structures</h2>
+          <p>This cutaway diagram is a learning aid. Choose a structure from the list (or, on wide screens, a numbered point). Its explanation appears next to the diagram on wide layouts and below it on smaller screens. The diagram may not show every structure or anatomical variation.</p>
+        </div>
+        <div class="anatomy-layout" id="anatomyExplorer">
+          <figure class="anatomy-visual">
+            <div class="diagram-stage" id="diagramStage">
+              <img src="../../images/heart-diagram-en.svg" width="893" height="703" alt="Labeled cutaway diagram of the heart. Blue shows oxygen-poor blood pathways and red shows oxygen-rich pathways. Use the structure selector for explanations." loading="lazy" decoding="async">
+              <div class="diagram-hotspots" id="diagramHotspots" aria-label="Interactive diagram markers"></div>
+            </div>
+            <figcaption class="diagram-credit">Illustration: “Heart diagram-en.svg” by ZooFari, via Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>. The image is reproduced unchanged. <a href="https://commons.wikimedia.org/wiki/File:Heart_diagram-en.svg" target="_blank" rel="noopener">View source and attribution details</a>.</figcaption>
+            <p class="diagram-legend"><span class="legend-dot legend-blue"></span> Oxygen-poor pathway <span class="legend-dot legend-red"></span> Oxygen-rich pathway</p>
+          </figure>
+          <div class="anatomy-details-column">
+            <div class="structure-selector">
+              <label for="structureSearch">Find a structure</label>
+              <input id="structureSearch" type="search" autocomplete="off" placeholder="Search chambers, valves or vessels" aria-describedby="structureHelp">
+              <p id="structureHelp" class="edu-small-note">Choose a name to read its explanation.</p>
+              <div class="structure-list" id="structureList" role="group" aria-label="Heart structures">
+                <p class="edu-loading" id="structureLoading">Loading the structure guide…</p>
+              </div>
+              <p id="structureNoResults" class="edu-no-results" role="status" hidden>No matching structure. Try a chamber, valve or blood vessel.</p>
+            </div>
+            <article class="structure-card" id="structureCard" aria-live="polite" aria-atomic="true">
+              <p class="edu-card-index" id="structureCategory">HEART STRUCTURE</p>
+              <h3 id="structureTitle">Choose a structure</h3>
+              <p class="structure-intro" id="structureIntro">Select a structure name to see a plain-language explanation.</p>
+              <div class="structure-copy" id="structureCopy"></div>
+              <details class="source-details" id="structureReferenceDetails">
+                <summary id="structureReferenceSummary">Sources</summary>
+                <p class="source-list" id="structureSources"></p>
+              </details>
+            </article>
+          </div>
+        </div>
+        <p class="not-shown-note"><strong>About the markers:</strong> The sourced illustration labels most chambers and vessels. The coronary arteries are not shown in this image; selecting that item explains their role without suggesting that the diagram depicts them.</p>
+      </div>
+    </section>
+
+    <section class="edu-section circulation-section" id="circulation" aria-labelledby="circulation-heading">
+      <div class="edu-shell">
+        <div class="edu-section-heading">
+          <p class="edu-eyebrow">A moving-vector guide · no video download</p>
+          <h2 id="circulation-heading">Follow one trip around the body</h2>
+          <p>See blood travel to the lungs and back. Follow each stop at your own pace.</p>
+        </div>
+        <div class="circulation-card" id="circulationExperience">
+          <div class="circulation-topline"><span id="circulationType">Pulmonary circulation</span><span id="stepCount">Step 1 of 9</span></div>
+          <p id="flowSwipeHint" class="edu-small-note flow-swipe-hint">Swipe across the route or use the numbered stops. The moving dot follows the blood-flow path.</p>
+          <div class="flow-map-scroll" id="flowMapScroll" tabindex="0" aria-label="Scrollable blood-flow infographic">
+            <div class="flow-map">
+              <svg class="flow-infographic" id="flowInfographic" viewBox="0 0 1000 220" role="img" aria-labelledby="flowSvgTitle flowSvgDescription">
+                <title id="flowSvgTitle">The blood-flow loop through the body, right heart, lungs and left heart</title>
+                <desc id="flowSvgDescription">Blue shows oxygen-poor blood returning to the heart and traveling toward the lungs. A gold path shows gas exchange in the lungs. Red shows oxygen-rich blood returning to the heart and going out to the body. Select one of the nine numbered stops to follow the loop.</desc>
+                <defs>
+                  <marker id="flowArrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#317ca3"/></marker>
+                  <marker id="flowArrowGold" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a87527"/></marker>
+                  <marker id="flowArrowRed" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b23b43"/></marker>
+                </defs>
+                <path class="flow-route flow-route-blue" d="M68 105H390" marker-end="url(#flowArrowBlue)"/>
+                <path class="flow-route flow-route-lungs" d="M390 105C430 48 460 48 500 105C540 162 570 162 610 105" marker-end="url(#flowArrowGold)"/>
+                <path class="flow-route flow-route-red" d="M610 105H932" marker-end="url(#flowArrowRed)"/>
+                <g class="flow-svg-node flow-node-blue" data-flow-node="0"><circle cx="68" cy="105" r="17"/><text x="68" y="51">01</text><text class="flow-svg-label" x="68" y="151">Body return</text></g>
+                <g class="flow-svg-node flow-node-blue" data-flow-node="1"><circle cx="176" cy="105" r="17"/><text x="176" y="51">02</text><text class="flow-svg-label" x="176" y="151">Right atrium</text></g>
+                <g class="flow-svg-node flow-node-blue" data-flow-node="2"><circle cx="284" cy="105" r="17"/><text x="284" y="51">03</text><text class="flow-svg-label" x="284" y="151">Right ventricle</text></g>
+                <g class="flow-svg-node flow-node-blue" data-flow-node="3"><circle cx="390" cy="105" r="17"/><text x="390" y="51">04</text><text class="flow-svg-label" x="390" y="151">To the lungs</text></g>
+                <g class="flow-svg-node flow-node-gold" data-flow-node="4"><circle cx="500" cy="105" r="17"/><text x="500" y="51">05</text><text class="flow-svg-label" x="500" y="151">Gas exchange</text></g>
+                <g class="flow-svg-node flow-node-red" data-flow-node="5"><circle cx="610" cy="105" r="17"/><text x="610" y="51">06</text><text class="flow-svg-label" x="610" y="151">From lungs</text></g>
+                <g class="flow-svg-node flow-node-red" data-flow-node="6"><circle cx="718" cy="105" r="17"/><text x="718" y="51">07</text><text class="flow-svg-label" x="718" y="151">Left atrium</text></g>
+                <g class="flow-svg-node flow-node-red" data-flow-node="7"><circle cx="826" cy="105" r="17"/><text x="826" y="51">08</text><text class="flow-svg-label" x="826" y="151">Left ventricle</text></g>
+                <g class="flow-svg-node flow-node-red" data-flow-node="8"><circle cx="932" cy="105" r="17"/><text x="932" y="51">09</text><text class="flow-svg-label" x="932" y="151">To the body</text></g>
+                <circle class="flow-moving-dot" id="flowParticle" cx="68" cy="105" r="10" aria-hidden="true"/>
+              </svg>
+              <div class="flow-map-stops" id="flowTrack" role="group" aria-label="Select a stop on the blood-flow path"></div>
+            </div>
+          </div>
+          <p class="flow-map-caption">Simplified path, not to scale. It shows the usual direction of blood flow.</p>
+          <div class="flow-map-legend" aria-label="Path colour key"><span><i class="legend-dot legend-blue"></i> To lungs</span><span><i class="legend-dot legend-gold"></i> Gas exchange</span><span><i class="legend-dot legend-red"></i> To body</span></div>
+          <div class="flow-current" aria-live="polite" aria-atomic="true">
+            <p class="flow-step-label" id="flowStepLabel">Loading circulation guide…</p>
+            <h3 id="flowStepTitle">Blood’s route</h3>
+            <p id="flowStepDescription">The full explanation is available as text below the controls.</p>
+            <div class="oxygen-pill" id="oxygenStatus">Oxygen-poor blood</div>
+            <details class="source-details flow-source-details">
+              <summary>Sources and science notes</summary>
+              <p class="source-list flow-source-list" id="flowSources" aria-label="Sources for this blood-flow explanation"></p>
+            </details>
+          </div>
+          <div class="flow-controls" role="group" aria-label="Blood flow controls">
+            <button type="button" id="flowPrevious" aria-label="Previous step">← Previous</button>
+            <button type="button" id="flowPlay" aria-pressed="false">Play</button>
+            <button type="button" id="flowPause" disabled>Pause</button>
+            <button type="button" id="flowNext">Next step →</button>
+            <button type="button" id="flowReset">Reset</button>
+          </div>
+          <p class="edu-small-note" id="flowMotionNote">Play advances the explanation every few seconds. You can pause, step forward or back, or reset at any time.</p>
+        </div>
+        <details class="flow-text-alternative">
+          <summary>Read the complete blood-flow sequence</summary>
+          <ol id="flowTextAlternative"><li class="edu-loading">Loading the blood-flow sequence…</li></ol>
+        </details>
+      </div>
+    </section>
+
+    <section class="edu-citations" id="sources" aria-labelledby="sources-heading">
+      <div class="edu-shell">
+        <h2 id="sources-heading">Sources and review information</h2>
+        <p>Medical explanations are drawn from the references linked with each structure and circulation step. The National Heart, Lung, and Blood Institute (NHLBI) provides public information about <a href="https://www.nhlbi.nih.gov/health/heart/anatomy" target="_blank" rel="noopener">heart anatomy</a> and <a href="https://www.nhlbi.nih.gov/health/heart/blood-flow" target="_blank" rel="noopener">blood flow</a>.</p>
+        <p class="review-record"><strong>Medical reviewer:</strong> Dr. Srikanth Nakka — review pending.<br><strong>Content status:</strong> Educational draft; not yet medically reviewed.<br><strong>Last updated:</strong> <time id="contentReviewDate" datetime="2026-11-18">18 November 2026</time>.</p>
+        <p class="medical-disclaimer">This content is intended for general educational purposes only. It does not replace professional medical advice, diagnosis or treatment. Individual assessment and treatment decisions should be made with a qualified healthcare professional.</p>
+      </div>
+    </section>
+    <aside class="edu-emergency" aria-label="Emergency information"><div class="edu-shell"><strong>Possible emergency?</strong> Severe chest pain, sudden breathlessness, fainting or other possible heart attack symptoms need immediate emergency medical attention. Do not wait for a website reply or appointment.</div></aside>
+  </main>
+  <footer class="education-footer">
+    <div class="edu-shell edu-footer-row">
+      <p><strong>Know Your Heart</strong><br>Patient education from Sri Purna Cardiac Care, Kompally, Hyderabad.</p>
+      <a href="../">Back to the education hub</a>
+      <a href="../../#appointment">Request a consultation</a>
+    </div>
+    <div class="edu-shell edu-review-note">Educational material is a draft awaiting review by Dr. Srikanth Nakka. It is not individual medical advice.</div>
+  </footer>
+  <script src="../education.js" defer></script>
+</body>
+</html>

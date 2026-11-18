@@ -1,45 +1,43 @@
 # Sri Purna Cardiac Care Website
 
-A responsive, single-page clinic website for Sri Purna Cardiac Care. It is intentionally built as a lightweight static site.
+A responsive static clinic website with a separate patient-education experience, **Know Your Heart**. Existing doctor information, clinic details, contact routes, responsive menu and WhatsApp appointment request flow remain on the main page.
 
-## Tech stack
+## Technology
 
-- **HTML5** for semantic page structure, metadata and physician/clinic structured data.
-- **CSS3** for the responsive layout, design tokens, form styling and reduced-motion support.
-- **Vanilla JavaScript (ES6)** for the mobile menu, appointment form validation and WhatsApp request draft.
-- **WebP image assets** for the hero, doctor portrait and clinic logo. The logo retains transparency.
-- **GitHub Actions and GitHub Pages** for static deployment.
-- **Google Fonts** (Inter and Lora), with system-font fallbacks.
+- HTML5 for semantic pages, metadata and clinic structured data.
+- CSS3 for responsive layouts and accessibility states.
+- Vanilla JavaScript (ES6) for the mobile navigation, appointment request flow, structure search, and selectable circulation steps.
+- SVG/CSS motion vectors for the circulation infographic—no large video download, media framework, or third-party runtime. Playback respects reduced-motion preferences.
+- WebP assets for the clinic logo, doctor portrait and homepage hero.
+- GitHub Actions and GitHub Pages for deployment. No build step, framework, package manager, backend or database is required.
 
-There is no frontend framework, package manager, bundler, server-side application, API or booking database. No npm install or build step is required.
+## Phase 1 pages
 
-## Project files
+- `index.html` — clinic homepage with a short introduction to Know Your Heart.
+- `know-your-heart/index.html` — education hub and search for the current anatomy guide.
+- `know-your-heart/anatomy/index.html` — concise patient-reference guide, labelled heart illustration, and animated, step-selectable circulation infographic.
+- `know-your-heart/education.css` and `know-your-heart/education.js` — styles and browser interactions for the education pages.
+- `know-your-heart/content/heart-guide.json` — researched draft explanations, source links and circulation steps.
+- `images/heart-diagram-en.svg` — unmodified diagram by ZooFari, licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Attribution and source links appear on the anatomy page. The image is separately identified and remains under its own license.
 
-- `index.html` — page content, search/social metadata and JSON-LD.
-- `styles.css` — all responsive styling and visual components.
-- `script.js` — mobile navigation, current year and appointment form behavior.
-- `images/` — the image assets referenced by the page.
-- `robots.txt` — crawler access rules.
-- `.github/workflows/static.yml` — copies only the site files into a clean deployment artifact and publishes it to GitHub Pages.
+The disease, symptom, diagnostic-test and procedure article library is intentionally outside this first release. Do not describe the current educational draft as medically reviewed. All new medical explanations must be reviewed by Dr. Srikanth Nakka before approval for clinical publication.
 
 ## Preview locally
 
-From this folder, run:
+From the repository root, run:
 
-```bash
+```sh
 python3 -m http.server 8000
 ```
 
-Then visit <http://localhost:8000>.
+Then visit <http://localhost:8000> and <http://localhost:8000/know-your-heart/>.
 
-## Appointment requests
+## Publishing
 
-The appointment form checks required fields in the browser and opens a prefilled WhatsApp draft. The visitor must review and send the message; the clinic then confirms the appointment. Form submissions are not stored by this site, and there is no online booking backend.
+The `.github/workflows/static.yml` workflow copies the clinic page, image assets and `know-your-heart/` directory to the GitHub Pages artifact on pushes to `main`. Pages routes use directory index files, so the education pages work as `/know-your-heart/` and `/know-your-heart/anatomy/`.
 
-## Before launch
+## Medical and operational notes
 
-1. Set the production domain before adding canonical URLs, absolute social image URLs or a sitemap.
-2. Verify the clinic phone numbers, address, map pin, consultation hours, doctor credentials and service availability with the clinic.
-3. Confirm professional, privacy and medical-advertising requirements for the launch region.
+Education content is general information, not diagnosis or individual medical advice. The anatomy page links supporting references and explicitly marks physician review as pending. The existing appointment form opens a prefilled WhatsApp message for the visitor to review and send; there is no online booking backend.
 
-The site uses an original implementation and locally maintained assets; it does not include third-party theme source code.
+Before expanding or promoting the education library, have Dr. Srikanth Nakka approve the content, verify clinic details and local emergency wording, set the production domain for canonical URLs and sitemap entries, and review applicable medical-advertising and privacy requirements.
