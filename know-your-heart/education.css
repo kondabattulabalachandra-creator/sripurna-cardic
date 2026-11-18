@@ -71,6 +71,9 @@
 .edu-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding-bottom: 1.5rem; }
 .edu-footer-row p { color: var(--edu-muted); font-size: .9rem; }
 .edu-footer-row p strong { color: var(--edu-ink); }
+.edu-footer-row .edu-social-links { color: var(--edu-ink); }
+.edu-footer-row .edu-social-links .social-link { border-color: var(--edu-border); }
+.edu-footer-row .edu-social-links .social-link:hover { border-color: var(--edu-ink); background: var(--edu-ink); color: #fff; }
 .edu-review-note { padding-top: 1rem; border-top: 1px solid var(--edu-border); color: var(--edu-muted); font-size: .78rem; }
 .edu-breadcrumb { display: flex; flex-wrap: wrap; gap: .55rem; padding-top: 1.1rem; color: var(--edu-muted); font-size: .84rem; }
 .edu-breadcrumb a { text-decoration: underline; text-underline-offset: .2em; }

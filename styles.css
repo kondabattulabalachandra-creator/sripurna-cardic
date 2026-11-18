@@ -962,6 +962,41 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   color: #94A3B8;
 }
 
+.social-links {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.social-link {
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.social-link svg {
+  display: block;
+  width: 21px;
+  height: 21px;
+}
+
+.footer .social-link {
+  border-color: rgb(255 255 255 / 0.4);
+  color: var(--color-bg-white);
+}
+
+.footer .social-link:hover {
+  border-color: var(--color-bg-white);
+  background: var(--color-bg-white);
+  color: var(--color-navy);
+}
+
 .footer-bottom {
   display: flex;
   flex-direction: column;
