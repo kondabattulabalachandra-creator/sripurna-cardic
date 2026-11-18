@@ -285,64 +285,52 @@
 
           <aside class="appointment-card" id="appointment" aria-labelledby="appointmentTitle">
             <h3 class="appointment-card-title" id="appointmentTitle">Book an appointment</h3>
-            <p class="appointment-card-lead">Request a consultation with Dr. Srikanth Nakka. Share a few details and
-              the clinic will contact you to confirm your slot.</p>
+            <p class="appointment-card-lead">Request a consultation with Dr. Srikanth Nakka. The clinic will contact
+              you to confirm your appointment.</p>
             <form id="appointmentForm" novalidate>
               <div class="form-grid">
                 <div class="form-group">
-                  <label for="patientName">Patient Name <span class="required">*</span></label>
-                  <input type="text" id="patientName" name="patientName" required placeholder="e.g. Ravi Kumar"
+                  <label class="visually-hidden" for="patientName">Name</label>
+                  <input type="text" id="patientName" name="patientName" required placeholder="Name"
                     autocomplete="name">
                 </div>
                 <div class="form-group">
-                  <label for="patientPhone">Phone Number <span class="required">*</span></label>
-                  <input type="tel" id="patientPhone" name="patientPhone" required placeholder="+91 98765 43210"
-                    autocomplete="tel">
+                  <label class="visually-hidden" for="patientEmail">Email</label>
+                  <input type="email" id="patientEmail" name="patientEmail" placeholder="Email"
+                    autocomplete="email">
                 </div>
                 <div class="form-group">
-                  <label for="patientAge">Age <span class="required">*</span></label>
-                  <input type="number" id="patientAge" name="patientAge" min="1" max="120" required
-                    placeholder="e.g. 45">
+                  <label class="visually-hidden" for="patientPhone">Mobile Number</label>
+                  <input type="tel" id="patientPhone" name="patientPhone" required placeholder="Mobile Number"
+                    autocomplete="tel" inputmode="tel">
                 </div>
                 <div class="form-group">
-                  <label for="patientGender">Gender</label>
-                  <select id="patientGender" name="patientGender">
-                    <option value="">Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                    <option value="Prefer not to say">Prefer not to say</option>
+                  <label class="visually-hidden" for="appointmentDate">Preferred appointment date</label>
+                  <input type="date" id="appointmentDate" name="appointmentDate" aria-label="Preferred appointment date">
+                </div>
+                <div class="form-group">
+                  <label class="visually-hidden" for="appointmentService">Service</label>
+                  <select id="appointmentService" name="appointmentService" required>
+                    <option value="">Select a service</option>
+                    <option value="Cardiology consultation">Cardiology consultation</option>
+                    <option value="ECG">ECG</option>
+                    <option value="2D echocardiography">2D echocardiography</option>
+                    <option value="TMT / cardiac stress test">TMT / cardiac stress test</option>
+                    <option value="Holter monitoring">Holter monitoring</option>
+                    <option value="Blood pressure monitoring">Blood pressure monitoring</option>
+                    <option value="Preventive heart check-up">Preventive heart check-up</option>
+                    <option value="Other / not sure">Other / not sure</option>
                   </select>
                 </div>
+                <div class="form-group">
+                  <label class="visually-hidden" for="patientMessage">Message</label>
+                  <textarea id="patientMessage" name="patientMessage" rows="3"
+                    placeholder="Message (optional)"></textarea>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="heartProblem">Heart-related problem <span class="required">*</span></label>
-                <select id="heartProblem" name="heartProblem" required>
-                  <option value="">Select concern</option>
-                  <option value="Chest pain / angina">Chest pain / angina</option>
-                  <option value="High blood pressure (hypertension)">High blood pressure (hypertension)</option>
-                  <option value="Irregular heartbeat / palpitations">Irregular heartbeat / palpitations</option>
-                  <option value="Shortness of breath">Shortness of breath</option>
-                  <option value="High cholesterol">High cholesterol</option>
-                  <option value="Previous heart attack or cardiac event">Previous heart attack or cardiac event</option>
-                  <option value="Routine preventive check-up">Routine preventive check-up</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="patientAddress">Address (area / city)</label>
-                <input type="text" id="patientAddress" name="patientAddress" placeholder="Kompally, Hyderabad"
-                  autocomplete="street-address">
-              </div>
-              <div class="form-group">
-                <label for="patientMessage">Additional details <span class="hint">(symptoms, duration, reports,
-                    etc.)</span></label>
-                <textarea id="patientMessage" name="patientMessage" rows="4"
-                  placeholder="Please share any symptoms or concerns you would like the doctor to know."></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary btn-block" id="formSubmit">Request Appointment</button>
-              <p class="form-note">Your request will be sent to the clinic via WhatsApp. This is not a confirmed
-                appointment until the clinic contacts you.</p>
+              <button type="submit" class="btn btn-primary btn-block" id="formSubmit">Submit</button>
+              <p class="form-note">Your request opens in WhatsApp for you to review and send. The appointment is not
+                confirmed until the clinic contacts you.</p>
             </form>
             <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
             <p class="appointment-disclaimer">For medical emergencies, contact local emergency services immediately.</p>

@@ -45,22 +45,20 @@ if (year) year.textContent = new Date().getFullYear();
 
     const data = new FormData(form);
     const name = data.get('patientName') || '';
+    const email = data.get('patientEmail') || 'Not provided';
     const phone = data.get('patientPhone') || '';
-    const age = data.get('patientAge') || '';
-    const gender = data.get('patientGender') || 'Not specified';
-    const problem = data.get('heartProblem') || '';
-    const address = data.get('patientAddress') || 'Not provided';
+    const appointmentDate = data.get('appointmentDate') || 'Flexible';
+    const service = data.get('appointmentService') || '';
     const details = data.get('patientMessage') || 'None provided';
 
     const text = [
       '*New Appointment Request – Sri Purna Cardiac Care*',
       '',
       'Patient Name: ' + name,
+      'Email: ' + email,
       'Phone: ' + phone,
-      'Age: ' + age,
-      'Gender: ' + gender,
-      'Heart Problem: ' + problem,
-      'Address: ' + address,
+      'Preferred Date: ' + appointmentDate,
+      'Service: ' + service,
       'Additional Details: ' + details,
       '',
       'Please confirm appointment slot.'
