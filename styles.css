@@ -10,15 +10,15 @@
   --fs-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
   /* Colors — Medical palette */
-  --color-bg: #F7F5F0;
-  --color-bg-white: #FFFEFC;
+  --color-bg: #F5F8FB;
+  --color-bg-white: #FFFFFF;
   --color-text: #152B3A;
   --color-text-secondary: #40515C;
   --color-text-muted: #697982;
   --color-brand: #B83A46;
   --color-brand-dark: #96323D;
   --color-navy: #17364B;
-  --color-border: #E5E2DA;
+  --color-border: #E1E8EF;
   --color-focus: #B83A46;
   --color-success: #059669;
 
@@ -304,7 +304,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 /* 7. Hero — mobile-first stack */
 .hero {
   padding: clamp(2.75rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem);
-  background: radial-gradient(ellipse at 82% 40%, rgb(232 222 205 / 0.34), transparent 42%), var(--color-bg-white);
+  background: radial-gradient(ellipse at 82% 40%, rgb(223 235 246 / 0.42), transparent 42%), var(--color-bg-white);
 }
 
 .hero-grid {
@@ -324,9 +324,9 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   width: min(100%, 470px);
   margin-inline: auto;
   padding: 9px;
-  border: 1px solid rgb(229 226 218 / 0.8);
+  border: 1px solid rgb(225 232 239 / 0.85);
   border-radius: 1.35rem;
-  background: linear-gradient(145deg, #fff, #f2efe8);
+  background: linear-gradient(145deg, #fff, #f3f7fa);
   box-shadow: 0 24px 60px rgb(23 54 75 / 0.12);
 }
 
@@ -372,7 +372,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: rgb(255 254 252 / 0.88);
+  background: rgb(255 255 255 / 0.92);
 }
 
 .hero-proof strong {
@@ -452,7 +452,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 }
 
 .about-section {
-  background: #F4F2EC;
+  background: var(--color-bg);
 }
 
 .about-grid {
@@ -656,7 +656,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  background: #FAF9F6;
+  background: var(--color-bg);
 }
 
 .qual-icon {
@@ -1417,7 +1417,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .education-intro {
   padding: clamp(2rem, 5vw, 4rem) 0;
   border-block: 1px solid var(--color-border);
-  background: #F3F1EB;
+  background: var(--color-bg);
 }
 
 .education-intro-inner {
