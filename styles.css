@@ -987,21 +987,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   line-height: 1.5;
 }
 
-.appointment-card #formSubmit {
-  width: 100%;
-  min-height: 54px;
-  margin-top: 16px;
-  border-color: #A400B5;
-  border-radius: 8px;
-  background: #A400B5;
-  color: #F8DE48;
-  font-weight: 700;
-}
-
-.appointment-card #formSubmit:hover {
-  border-color: #8E009D;
-  background: #8E009D;
-}
+.appointment-card #formSubmit { margin-top: var(--space-4); }
 
 .appointment-disclaimer {
   margin-top: var(--space-5);
