@@ -1,31 +1,45 @@
-# Sri Purna Cardiac Care — Website starter
+# Sri Purna Cardiac Care Website
 
-A responsive static website built with plain HTML, CSS and JavaScript.
+A responsive, single-page clinic website for Sri Purna Cardiac Care. It is intentionally built as a lightweight static site.
 
-## Files
-- `index.html` — page content, metadata, structured data and map
-- `styles.css` — responsive navy, crimson, white and clinical-grey visual identity
-- `script.js` — mobile navigation and current year
+## Tech stack
+
+- **HTML5** for semantic page structure, metadata and physician/clinic structured data.
+- **CSS3** for the responsive layout, design tokens, form styling and reduced-motion support.
+- **Vanilla JavaScript (ES6)** for the mobile menu, appointment form validation and WhatsApp request draft.
+- **WebP image assets** for the hero, doctor portrait and clinic logo. The logo retains transparency.
+- **GitHub Actions and GitHub Pages** for static deployment.
+- **Google Fonts** (Inter and Lora), with system-font fallbacks.
+
+There is no frontend framework, package manager, bundler, server-side application, API or booking database. No npm install or build step is required.
+
+## Project files
+
+- `index.html` — page content, search/social metadata and JSON-LD.
+- `styles.css` — all responsive styling and visual components.
+- `script.js` — mobile navigation, current year and appointment form behavior.
+- `images/` — the image assets referenced by the page.
+- `robots.txt` — crawler access rules.
+- `.github/workflows/static.yml` — copies only the site files into a clean deployment artifact and publishes it to GitHub Pages.
 
 ## Preview locally
-Open `index.html` in a browser. For a local development server, from this folder run:
+
+From this folder, run:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then visit `http://localhost:8000`.
+Then visit <http://localhost:8000>.
 
-## Before publishing
-1. Configure the final production domain, then add its canonical URL, absolute social sharing image URLs and an absolute-URL XML sitemap. These are intentionally not set to a made-up domain.
-2. Confirm the appointment numbers, clinic address and exact Google Maps pin with the clinic.
-3. Confirm the status and dates for the Pulse Heart Hospital, Miyapur association before adding it as a current or former appointment. The supplied profile does not establish those dates/status.
-4. Confirm the doctor's qualifications, institutional details, diagnostic service availability and consultation schedule with the clinic.
-5. Confirm any required medical advertising, privacy and professional compliance before launch.
+## Appointment requests
 
-## Notes
-- The site uses Google Fonts from Google Fonts; system fallbacks are included.
-- The WhatsApp buttons open a prefilled message to the first appointment number.
-- Appointment actions call the clinic or open WhatsApp; there is no booking database or online booking form.
-- Services are presented from the submitted clinic requirements. Confirm availability before publishing. Angioplasty is not presented as an in-clinic service.
-- The supplied ThemeForest preview is a visual reference. This is an original implementation using a similar cardiology-focused, premium medical layout; it does not include ThemeForest template source code or assets.
+The appointment form checks required fields in the browser and opens a prefilled WhatsApp draft. The visitor must review and send the message; the clinic then confirms the appointment. Form submissions are not stored by this site, and there is no online booking backend.
+
+## Before launch
+
+1. Set the production domain before adding canonical URLs, absolute social image URLs or a sitemap.
+2. Verify the clinic phone numbers, address, map pin, consultation hours, doctor credentials and service availability with the clinic.
+3. Confirm professional, privacy and medical-advertising requirements for the launch region.
+
+The site uses an original implementation and locally maintained assets; it does not include third-party theme source code.
