@@ -1598,7 +1598,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
     gap: 1.25rem;
   }
   .gallery-card-feature { grid-column: span 7; grid-row: span 2; }
-  .gallery-card-feature > a { aspect-ratio: auto; height: calc(100% - 66px); min-height: 280px; }
+  .gallery-card-feature > a { aspect-ratio: auto; height: 100%; min-height: 280px; }
   .gallery-card:nth-child(2) { grid-column: span 5; }
   .gallery-card:nth-child(3) { grid-column: span 5; }
   .gallery-card:nth-child(n+4) { grid-column: span 4; }
@@ -1608,3 +1608,33 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 @media (prefers-reduced-motion: reduce) {
   .gallery-card, .gallery-card img, .gallery-open { transition: none; }
 }
+
+/* Dedicated physician profile page */
+.doctor-page-heading {
+  padding: clamp(3.5rem, 8vw, 6rem) 0 1rem;
+  background: radial-gradient(ellipse at 50% 0%, rgb(220 238 242 / 0.72), transparent 64%);
+  text-align: center;
+}
+.doctor-page-heading .eyebrow { margin-bottom: 0.75rem; }
+.doctor-page-heading h1 {
+  margin: 0 auto 0.75rem;
+  color: var(--color-navy);
+  font-size: clamp(2.25rem, 6vw, 4rem);
+}
+.doctor-page-heading p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--color-text-secondary);
+}
+.doctor-page-heading + .doctor-section { padding-top: var(--space-8); }
+.doctor-profile-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  color: var(--color-navy);
+  font-size: var(--text-sm);
+  font-weight: 750;
+}
+.doctor-profile-link:hover { color: var(--color-brand); }
