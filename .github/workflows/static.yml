@@ -38,6 +38,7 @@ jobs:
           mkdir -p _site/images
           cp index.html styles.css script.js robots.txt _site/
           cp images/hero.webp images/dr-srikanth-nakka-clinic-portrait.webp images/sri-purna-cardiac-care-logo-user.webp images/heart-diagram-en.svg _site/images/
+          cp images/cardiac-care-team.webp images/community-health-event.webp images/dr-srikanth-nakka-cardiology-colleagues.webp images/dr-srikanth-nakka-cardiology-conference-panel.webp images/dr-srikanth-nakka-cardiology-conference.webp images/dr-srikanth-nakka-consultation.webp _site/images/
           mkdir -p _site/images/services _site/vendor
           cp -R images/services/. _site/images/services/
           cp -R vendor/bootstrap _site/vendor/
