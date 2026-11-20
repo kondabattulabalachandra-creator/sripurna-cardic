@@ -162,6 +162,12 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   margin-bottom: var(--space-4);
   line-height: 1.02;
   letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.hero-headline-accent {
+  display: block;
+  color: var(--color-brand-dark);
 }
 
 /* Eyebrow / badge labels — body font, no slant */
@@ -1840,6 +1846,8 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 }
 
 @media (max-width: 420px) {
+  .hero h1 { font-size: clamp(2.125rem, 9vw, 2.5rem); }
+
   .hero-social-action {
     gap: 0.45rem;
     padding-inline: 0.75rem;
