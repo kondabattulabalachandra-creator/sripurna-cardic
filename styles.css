@@ -1,13 +1,29 @@
 /* ==========================================================================
    Sri Purna Cardiac Care — Modern Design System
-   Mobile-first | fast system sans | bold hierarchy | no italics
+   Mobile-first | self-hosted variable fonts | measured hierarchy | no italics
    ========================================================================== */
+
+@font-face {
+  font-family: "Manrope";
+  src: url("fonts/manrope-latin-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("fonts/source-sans-3-latin-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+}
 
 /* 1. Design Tokens */
 :root {
   /* Fonts */
-  --fs-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  --fs-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-heading: "Manrope", "Segoe UI", Arial, sans-serif;
+  --fs-body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
   /* Colors — Medical palette */
   --color-bg: #F5F8FB;
@@ -90,8 +106,8 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--fs-body);
-  font-size: var(--text-base);
-  font-weight: 600;
+  font-size: clamp(1rem, 0.97rem + 0.16vw, 1.0625rem);
+  font-weight: 400;
   line-height: var(--leading-relaxed);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -120,15 +136,17 @@ p {
   margin-bottom: var(--space-5);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);
+  text-align: left;
+  text-wrap: pretty;
 }
 
 /* 3. Typography — No slanting anywhere */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--fs-heading);
-  font-weight: 800;
+  font-weight: 680;
   line-height: var(--leading-tight);
   color: var(--color-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.035em;
   font-style: normal !important;
 }
 
@@ -140,10 +158,10 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 /* Hero title — uniform heading */
 .hero h1 {
   font-size: clamp(2.5rem, 5.8vw, 4.5rem);
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: var(--space-4);
   line-height: 1.02;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.045em;
 }
 
 /* Eyebrow / badge labels — body font, no slant */
@@ -1638,3 +1656,52 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   font-weight: 750;
 }
 .doctor-profile-link:hover { color: var(--color-brand); }
+
+/* Refined type rhythm: justify only substantial prose on wide layouts. */
+.hero-lead,
+.body-copy,
+.doctor-page-heading p {
+  max-width: 68ch;
+}
+
+.doctor-page-heading p {
+  line-height: 1.75;
+}
+
+.body-copy {
+  font-weight: 400;
+  line-height: 1.72;
+}
+
+.nav > a,
+.btn,
+.doctor-profile-link,
+.text-link {
+  font-weight: 600;
+}
+
+.qualifications b,
+.contact-detail b,
+.map-caption b {
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .hero-lead,
+  .doctor-copy > p.body-copy,
+  .about-copy > p.body-copy {
+    text-align: justify;
+    text-align-last: left;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-lead,
+  .body-copy,
+  .doctor-page-heading p {
+    text-align: left;
+    hyphens: none;
+  }
+}

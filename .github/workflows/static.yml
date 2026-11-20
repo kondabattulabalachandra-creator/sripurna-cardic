@@ -37,6 +37,7 @@ jobs:
         run: |
           mkdir -p _site/images
           cp index.html styles.css script.js robots.txt _site/
+          cp -R fonts _site/fonts
           mkdir -p _site/dr-srikanth-nakka
           cp dr-srikanth-nakka/index.html _site/dr-srikanth-nakka/index.html
           cp images/hero.webp images/dr-srikanth-nakka-clinic-portrait.webp images/sri-purna-cardiac-care-logo-user.webp images/heart-diagram-en.svg _site/images/
