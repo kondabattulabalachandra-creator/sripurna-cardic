@@ -10,6 +10,8 @@ Treat the Apple and Starbucks references as broad craft cues—clean hierarchy a
 
 The human story will be expressed through the way existing text is presented—not new, unverified patient stories or medical claims. No new assets are planned; the existing optimized WebP portrait and logo remain the source of truth. All doctor qualifications, clinic details, phone/email, services/hours, patient education disclosures and the notice that WhatsApp appointment requests are not confirmed must remain accurate and functional.
 
+For this homepage refinement, remove the redundant “Cardiologist in Kompally, Hyderabad” eyebrow directly beneath the “Healthy Heart, Better Tomorrow” hero heading, without removing the separate physician-section location label. Replace the small profile text link with a prominent, accessible “View Dr. Nakka’s Full Profile” CTA, using existing verified journey details to invite exploration without adding new medical claims.
+
 ## Implementation and structure
 
 - `styles.css`: make targeted changes to the existing design tokens and current selectors; avoid a wholesale rewrite and avoid a growing stack of redundant overrides.

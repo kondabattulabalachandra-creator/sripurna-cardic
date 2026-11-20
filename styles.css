@@ -1651,17 +1651,81 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   color: var(--color-text-secondary);
 }
 .doctor-page-heading + .doctor-section { padding-top: var(--space-8); }
+.doctor-profile-cta {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  justify-items: start;
+  gap: 0.7rem;
+  overflow: hidden;
+  margin-top: var(--space-5);
+  padding: clamp(1.2rem, 3vw, 1.65rem);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(125deg, #17364B 0%, #244F68 100%);
+  box-shadow: 0 16px 36px rgb(23 54 75 / 0.18);
+}
+.doctor-profile-cta::after {
+  position: absolute;
+  z-index: -1;
+  top: -3.5rem;
+  right: -2.5rem;
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5rem rgb(255 255 255 / 0.035), 0 0 0 3rem rgb(255 255 255 / 0.025);
+  content: "";
+  pointer-events: none;
+}
+.doctor-profile-cta-kicker {
+  color: #FFD9D7;
+  font-family: var(--fs-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.doctor-profile-cta > p {
+  max-width: 54ch;
+  margin: 0;
+  color: rgb(255 255 255 / 0.9);
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
 .doctor-profile-link {
   display: inline-flex;
-  min-height: 44px;
+  min-height: 48px;
   align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.15rem;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid rgb(255 255 255 / 0.75);
+  border-radius: 0.7rem;
+  background: #fff;
   color: var(--color-navy);
-  font-size: var(--text-sm);
-  font-weight: 750;
+  font-size: var(--text-base);
+  font-weight: 700;
+  box-shadow: 0 5px 16px rgb(0 0 0 / 0.12);
+  transition: transform var(--transition), background-color var(--transition), color var(--transition), box-shadow var(--transition);
 }
-.doctor-profile-link:hover { color: var(--color-brand); }
+.doctor-profile-cta .doctor-profile-link { font-weight: 750; }
+.doctor-profile-link:hover {
+  transform: translateY(-2px);
+  background: #FFF5F4;
+  color: var(--color-brand-dark);
+  box-shadow: 0 9px 22px rgb(0 0 0 / 0.18);
+}
+.doctor-profile-link:focus-visible {
+  outline: 3px solid #FFD9D7;
+  outline-offset: 3px;
+}
+@media (max-width: 767px) {
+  .doctor-profile-cta { width: 100%; }
+  .doctor-profile-link { width: 100%; }
+}
 
 /* Refined type rhythm: justify only substantial prose on wide layouts. */
 .hero-lead,
