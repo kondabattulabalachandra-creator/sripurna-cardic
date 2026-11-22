@@ -12,14 +12,21 @@
   <meta name="robots" content="index,follow">
   <title>Dr. Srikanth Nakka, Cardiologist in Kompally, Hyderabad</title>
   <meta name="description" content="Meet Dr. Srikanth Nakka, Consultant Interventional Cardiologist in Kompally, Hyderabad. See his qualifications, experience and clinic appointment details.">
+  <link rel="canonical" href="https://www.drsrikanthnakka.in/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Dr. Srikanth Nakka, Cardiologist in Kompally | Sri Purna Cardiac Care">
   <meta property="og:description" content="Learn about Dr. Srikanth Nakka’s qualifications, cardiology experience and consultations at Sri Purna Cardiac Care in Kompally, Hyderabad.">
+  <meta property="og:url" content="https://www.drsrikanthnakka.in/">
+  <meta property="og:site_name" content="Sri Purna Cardiac Care">
+  <meta property="og:image" content="https://www.drsrikanthnakka.in/images/hero.webp">
+  <meta property="og:image:alt" content="Dr. Srikanth Nakka, Consultant Interventional Cardiologist">
   <link rel="preload" href="fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/source-sans-3-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dr. Srikanth Nakka, Cardiologist in Kompally">
   <meta name="twitter:description" content="Meet Dr. Srikanth Nakka, Consultant Interventional Cardiologist in Kompally, Hyderabad.">
+  <meta name="twitter:image" content="https://www.drsrikanthnakka.in/images/hero.webp">
+  <meta name="twitter:image:alt" content="Dr. Srikanth Nakka, Consultant Interventional Cardiologist">
   <link rel="stylesheet" href="vendor/bootstrap/bootstrap-grid.min.css">
   <link rel="stylesheet" href="vendor/bootstrap/bootstrap-utilities.min.css">
   <link rel="stylesheet" href="styles.css">
@@ -27,8 +34,11 @@
   {
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
+  "@id": "https://www.drsrikanthnakka.in/#clinic",
   "name": "Sri Purna Cardiac Care",
   "description": "Cardiac consultation and diagnostic services in Kompally, Hyderabad.",
+  "url": "https://www.drsrikanthnakka.in/",
+  "image": "https://www.drsrikanthnakka.in/images/sri-purna-cardiac-care-logo-user.webp",
   "telephone": [
     "+91-7013092422",
     "+91-7569692422"
@@ -43,7 +53,12 @@
     "addressCountry": "IN"
   },
   "medicalSpecialty": "https://schema.org/Cardiovascular",
-  "openingHours": "Mo-Su 18:00-21:00",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "18:00",
+    "closes": "21:00"
+  },
   "employee": {
     "@type": "Physician",
     "name": "Dr. Srikanth Nakka",
@@ -66,6 +81,7 @@
     ],
     "worksFor": {
       "@type": "MedicalClinic",
+      "@id": "https://www.drsrikanthnakka.in/#clinic",
       "name": "Sri Purna Cardiac Care"
     },
     "description": "Dr. Srikanth Nakka is a Consultant Interventional Cardiologist at Sri Purna Cardiac Care in Kompally, Hyderabad. His training includes MBBS, DNB in General Medicine and DM in Cardiology; he previously served as Assistant Professor at NIMS and Consultant Cardiologist at Yashoda Hospital, Secunderabad.",
