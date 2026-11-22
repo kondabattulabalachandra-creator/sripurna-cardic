@@ -1633,6 +1633,14 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   .gallery-card, .gallery-card img, .gallery-open { transition: none; }
 }
 
+.gallery-card-portrait > a { aspect-ratio: 3 / 4; }
+.gallery-card-portrait img { object-fit: contain; background: #E6EEF2; }
+.gallery-card-portrait:hover img { transform: none; }
+
+@media (min-width: 1024px) {
+  .gallery-card-portrait { grid-column: span 3; grid-row: span 3; }
+}
+
 /* Dedicated physician profile page */
 .doctor-page-heading {
   padding: clamp(3.5rem, 8vw, 6rem) 0 1rem;
