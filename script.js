@@ -28,87 +28,27 @@ if (menuToggle && primaryNav) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-/* Doctor journey carousel */
+/* Reveal career gallery cards as they enter view. */
 (function () {
-  const carousel = document.querySelector('[data-journey-carousel]');
-  if (!carousel) return;
+  const gallery = document.querySelector('.career-gallery');
+  if (!gallery || !('IntersectionObserver' in window)) return;
 
-  const slides = Array.from(carousel.querySelectorAll('[data-journey-slide]'));
-  const dots = Array.from(carousel.querySelectorAll('[data-journey-dot]'));
-  const announcement = carousel.querySelector('[data-journey-announcement]');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const intervalMs = 6500;
-  let activeIndex = 0;
-  let timer = null;
-  let touchStartX = null;
+  const cards = Array.from(gallery.querySelectorAll('[data-career-reveal]'));
+  if (!cards.length) return;
 
-  if (slides.length < 2) return;
-
-  function stopTimer() {
-    if (timer) window.clearInterval(timer);
-    timer = null;
-  }
-
-  function startTimer() {
-    stopTimer();
-    if (document.hidden || reducedMotion.matches) return;
-    timer = window.setInterval(() => showSlide(activeIndex + 1, false), intervalMs);
-  }
-
-  function showSlide(index, announceChange) {
-    activeIndex = (index + slides.length) % slides.length;
-    slides.forEach((slide, slideIndex) => {
-      const isActive = slideIndex === activeIndex;
-      slide.classList.toggle('is-active', isActive);
-      slide.setAttribute('aria-hidden', String(!isActive));
-      slide.setAttribute('aria-label', 'Slide ' + (slideIndex + 1));
+  gallery.classList.add('is-motion-ready');
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      currentObserver.unobserve(entry.target);
     });
-    dots.forEach((dot, dotIndex) => {
-      const isActive = dotIndex === activeIndex;
-      dot.classList.toggle('is-current', isActive);
-      if (isActive) dot.setAttribute('aria-current', 'true');
-      else dot.removeAttribute('aria-current');
-    });
-    if (announceChange && announcement) {
-      const title = slides[activeIndex].querySelector('h3');
-      announcement.textContent = 'Slide ' + (activeIndex + 1) + ': ' + (title ? title.textContent : '');
-    }
-    startTimer();
-  }
+  }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
 
-  dots.forEach((dot) => dot.addEventListener('click', () => showSlide(Number(dot.dataset.journeyDot), true)));
-
-  carousel.addEventListener('keydown', (event) => {
-    if (event.altKey || event.ctrlKey || event.metaKey) return;
-    if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      showSlide(activeIndex + 1, true);
-    } else if (event.key === 'ArrowLeft') {
-      event.preventDefault();
-      showSlide(activeIndex - 1, true);
-    }
+  cards.forEach((card, index) => {
+    card.style.setProperty('--reveal-delay', (index % 3) * 70 + 'ms');
+    observer.observe(card);
   });
-
-  carousel.addEventListener('touchstart', (event) => {
-    touchStartX = event.changedTouches[0].clientX;
-  }, { passive: true });
-  carousel.addEventListener('touchend', (event) => {
-    if (touchStartX === null) return;
-    const distance = event.changedTouches[0].clientX - touchStartX;
-    touchStartX = null;
-    if (Math.abs(distance) > 48) showSlide(activeIndex + (distance < 0 ? 1 : -1), true);
-  }, { passive: true });
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopTimer();
-    else startTimer();
-  });
-  const handleMotionPreferenceChange = () => {
-    startTimer();
-  };
-  if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', handleMotionPreferenceChange);
-  else if (reducedMotion.addListener) reducedMotion.addListener(handleMotionPreferenceChange);
-  startTimer();
 })();
 
 /* Appointment form (contact section) -> WhatsApp */
