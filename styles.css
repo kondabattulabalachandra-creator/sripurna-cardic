@@ -2289,39 +2289,3 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 @media (max-width: 380px) {
   .journey-slides { min-height: clamp(44rem, calc(100vw + 24rem), 50rem); }
 }
-
-
-/* Homepage content cleanup: let the doctor portraits lead the page */
-.hero-media {
-  width: min(100%, 550px);
-}
-
-.doctor-profile-photo img {
-  max-height: 720px;
-}
-
-.doctor-copy .text-link {
-  margin-top: 0.35rem;
-  font-weight: 700;
-}
-
-.visit-header h2 {
-  margin-bottom: 0;
-}
-
-@media (min-width: 1024px) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: var(--space-12);
-  }
-
-  .doctor-grid {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: var(--space-12);
-  }
-}
-
-@media (max-width: 767px) {
-  .doctor-profile-photo { max-width: 520px; }
-  .doctor-profile-photo img { max-height: 640px; }
-}
