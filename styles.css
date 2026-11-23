@@ -2325,3 +2325,31 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   .doctor-profile-photo { max-width: 520px; }
   .doctor-profile-photo img { max-height: 640px; }
 }
+
+
+/* Compact text cards for the homepage copy refresh */
+.service-card {
+  min-height: 0;
+}
+
+.doctor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.doctor-actions .text-link {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .doctor-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .doctor-actions .btn {
+    width: 100%;
+  }
+}
