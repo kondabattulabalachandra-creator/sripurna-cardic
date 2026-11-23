@@ -35,9 +35,6 @@ if (year) year.textContent = new Date().getFullYear();
 
   const slides = Array.from(carousel.querySelectorAll('[data-journey-slide]'));
   const dots = Array.from(carousel.querySelectorAll('[data-journey-dot]'));
-  const previous = carousel.querySelector('[data-journey-prev]');
-  const next = carousel.querySelector('[data-journey-next]');
-  const status = carousel.querySelector('[data-journey-status]');
   const announcement = carousel.querySelector('[data-journey-announcement]');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const intervalMs = 6500;
@@ -64,6 +61,7 @@ if (year) year.textContent = new Date().getFullYear();
       const isActive = slideIndex === activeIndex;
       slide.classList.toggle('is-active', isActive);
       slide.setAttribute('aria-hidden', String(!isActive));
+      slide.setAttribute('aria-label', 'Slide ' + (slideIndex + 1));
     });
     dots.forEach((dot, dotIndex) => {
       const isActive = dotIndex === activeIndex;
@@ -71,16 +69,13 @@ if (year) year.textContent = new Date().getFullYear();
       if (isActive) dot.setAttribute('aria-current', 'true');
       else dot.removeAttribute('aria-current');
     });
-    if (status) status.innerHTML = String(activeIndex + 1).padStart(2, '0') + ' <i></i> ' + String(slides.length).padStart(2, '0');
     if (announceChange && announcement) {
       const title = slides[activeIndex].querySelector('h3');
-      announcement.textContent = 'Slide ' + (activeIndex + 1) + ' of ' + slides.length + ': ' + (title ? title.textContent : '');
+      announcement.textContent = 'Slide ' + (activeIndex + 1) + ': ' + (title ? title.textContent : '');
     }
     startTimer();
   }
 
-  if (previous) previous.addEventListener('click', () => showSlide(activeIndex - 1, true));
-  if (next) next.addEventListener('click', () => showSlide(activeIndex + 1, true));
   dots.forEach((dot) => dot.addEventListener('click', () => showSlide(Number(dot.dataset.journeyDot), true)));
 
   carousel.addEventListener('keydown', (event) => {
