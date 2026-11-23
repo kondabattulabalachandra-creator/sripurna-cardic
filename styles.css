@@ -391,30 +391,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   width: 100%;
 }
 
-.hero-proof {
-  margin-top: var(--space-6);
-  padding: var(--space-4);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: rgb(255 255 255 / 0.92);
-}
-
-.hero-proof strong {
-  color: var(--color-text);
-  font-family: var(--fs-body);
-  font-weight: 700;
-  font-size: var(--text-base);
-  display: block;
-}
-
-.hero-proof small {
-  color: var(--color-text-muted);
-  font-family: var(--fs-body);
-  font-size: var(--text-sm);
-  display: block;
-  margin-top: 0.15rem;
-}
-
 .hero-bottom {
   display: flex;
   grid-template-columns: 1fr auto;
@@ -467,7 +443,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   margin-bottom: var(--space-8);
   text-align: center;
 }
-
+.home-page .section-heading { text-align: left; }
 .section-heading > .body-copy {
   max-width: 600px;
   margin-inline: auto;
@@ -486,24 +462,8 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   gap: clamp(2rem, 6vw, 5rem);
 }
 
-.about-grid h2 { max-width: 13ch; }
+.about-grid h2 { max-width: 18ch; }
 .about-copy { max-width: 66ch; }
-
-.about-callout {
-  display: block;
-  margin-top: var(--space-6);
-  padding: var(--space-4) var(--space-5);
-  border-left: 3px solid var(--color-brand);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  background: var(--color-bg-white);
-  box-shadow: var(--shadow);
-}
-
-.about-callout strong {
-  color: var(--color-navy);
-  font-weight: 700;
-  display: block;
-}
 
 /* Services section — Bootstrap 5 grid, clinic palette, and consistent photo cards. */
 .services-section {
@@ -732,80 +692,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .career-heading {
   margin: var(--space-8) 0 var(--space-3);
   font-size: var(--text-lg);
-}
-
-/* 12. Appointment Band */
-.appointment-band {
-  position: relative;
-  padding: var(--space-12) 0;
-  background: linear-gradient(115deg, #17364B 0%, #1E465A 100%);
-  color: var(--color-bg-white);
-  overflow: hidden;
-}
-
-.appointment-band .eyebrow {
-  color: #F1C8C0;
-}
-
-.appointment-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8);
-  align-items: start;
-}
-
-.appointment-grid h2 {
-  color: var(--color-bg-white);
-  margin-bottom: var(--space-4);
-}
-
-.appointment-grid p {
-  color: #94A3B8;
-  font-size: var(--text-base);
-  margin-bottom: var(--space-6);
-  max-width: 100%;
-}
-
-.appointment-actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.appointment-actions .btn {
-  width: 100%;
-  justify-content: center;
-}
-
-.appointment-actions .btn-white {
-  background: var(--color-bg-white);
-  border-color: var(--color-bg-white);
-  color: var(--color-navy);
-}
-
-.appointment-actions .btn-white:hover {
-  background: var(--color-brand);
-  border-color: var(--color-brand);
-  color: var(--color-bg-white);
-}
-
-.appointment-actions .btn-outline-white {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.45);
-  color: var(--color-bg-white);
-}
-
-.appointment-actions .btn-outline-white:hover {
-  background: var(--color-bg-white);
-  border-color: var(--color-bg-white);
-  color: var(--color-navy);
-}
-
-.appointment-actions small {
-  color: #94A3B8;
-  font-family: var(--fs-body);
-  font-size: var(--text-xs);
-  margin-top: var(--space-2);
 }
 
 /* 13. Contact / Visit */
@@ -1128,22 +1014,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   padding: 14px;
 }
 
-.form-note {
-  margin: var(--space-4) 0 0;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  line-height: 1.5;
-}
-
 .appointment-card #formSubmit { margin-top: var(--space-4); }
-
-.appointment-disclaimer {
-  margin-top: var(--space-5);
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  border-top: 1px solid var(--color-border);
-  padding-top: var(--space-4);
-}
 
 .form-status {
   display: none;
@@ -1188,7 +1059,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
     gap: var(--space-3);
   }
   .hero-actions .btn { width: auto; }
-  .hero-proof { margin-top: var(--space-8); }
   .hero-bottom {
     flex-direction: row;
     align-items: center;
@@ -1208,10 +1078,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
     max-width: 480px;
     margin-inline: 0;
     text-align: left;
-  }
-  .appointment-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
   }
   .visit-grid {
     grid-template-columns: 1fr 1.15fr;
@@ -1462,15 +1328,12 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .education-intro h2 {
   margin: 0.3rem 0 0.5rem;
   color: var(--color-navy);
-  font-family: var(--fs-heading);
-  font-size: clamp(1.65rem, 3vw, 2.25rem);
-  line-height: var(--leading-tight);
 }
 
 .education-intro p {
   max-width: 680px;
   color: var(--color-text-secondary);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
 }
 
 .education-intro-link {
@@ -1595,12 +1458,19 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
-
 .gallery-card figcaption strong {
   color: var(--color-navy);
   font-size: 0.96rem;
   font-weight: 750;
   line-height: 1.35;
+}
+.home-page .career-gallery .career-photo figcaption span {
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+.home-page .career-gallery .career-photo figcaption strong {
+  font-size: var(--text-base);
+  font-weight: 700;
 }
 
 .gallery-note {
@@ -1745,7 +1615,13 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .doctor-page-heading p {
   line-height: 1.75;
 }
-
+.home-page .hero-lead,
+.home-page .doctor-copy > p.body-copy,
+.home-page .about-copy > p.body-copy {
+  text-align: left;
+  text-justify: auto;
+  hyphens: none;
+}
 .body-copy {
   font-weight: 400;
   line-height: 1.72;
@@ -1763,18 +1639,17 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .map-caption b {
   font-weight: 600;
 }
-
 @media (min-width: 1024px) {
   .hero-lead,
   .doctor-copy > p.body-copy,
-  .about-copy > p.body-copy {
+  .about-copy > p.body-copy,
+  .doctor-page-heading p {
     text-align: justify;
     text-align-last: left;
     text-justify: inter-word;
     hyphens: auto;
   }
 }
-
 @media (max-width: 767px) {
   .hero-lead,
   .body-copy,
@@ -1788,7 +1663,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .hero-social-action {
   gap: 0.6rem;
   padding-inline: 1rem;
-  font-size: 0.94rem;
+  font-size: var(--text-sm);
   white-space: nowrap;
 }
 
@@ -1809,19 +1684,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   transform: translateY(-1px);
   border-color: var(--color-navy);
   background: #F7FAFC;
-}
-
-.hero-community-note {
-  width: min(100%, 52ch);
-  margin: 0;
-  padding: 0.7rem 0.9rem;
-  border-left: 3px solid var(--color-brand);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  background: var(--color-bg);
-  color: var(--color-navy);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  line-height: 1.5;
 }
 
 .doctor-journey-lead {
@@ -1923,7 +1785,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   .hero-social-action {
     gap: 0.45rem;
     padding-inline: 0.75rem;
-    font-size: 0.88rem;
   }
 
   .professional-journey li { padding-inline: 0.75rem; }
@@ -2306,14 +2167,12 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .career-section .gallery-heading h2 {
   max-width: 17ch;
   color: var(--color-navy);
-  font-size: clamp(2rem, 4vw, 3.25rem);
   text-wrap: balance;
 }
 
 .career-section .gallery-heading > .body-copy {
   max-width: 54ch;
   margin: 0;
-  font-size: clamp(0.97rem, 1.1vw, 1.08rem);
 }
 
 .career-gallery .career-photo {
@@ -2346,16 +2205,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 
 .career-gallery.is-motion-ready [data-career-reveal].is-visible:hover {
   transform: translateY(-5px);
-}
-
-.career-profile-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1.75rem;
-  color: var(--color-text-secondary);
-  font-size: var(--text-sm);
 }
 
 @media (min-width: 1024px) {
@@ -2398,11 +2247,6 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   .career-section .gallery-heading {
     align-items: flex-start;
     text-align: left;
-  }
-
-  .career-profile-link {
-    align-items: flex-start;
-    flex-direction: column;
   }
 }
 
