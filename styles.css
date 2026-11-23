@@ -1937,3 +1937,340 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 
   .hero-social-actions { flex-direction: column; }
 }
+
+/* 20. Doctor journey carousel */
+.journey-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3.5rem, 8vw, 6.75rem) 0;
+  background:
+    radial-gradient(ellipse at 7% 20%, rgb(221 235 244 / 0.75), transparent 38%),
+    linear-gradient(180deg, #F5F8FB 0%, #EDF3F6 100%);
+}
+
+.journey-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+
+.journey-heading h2 {
+  max-width: 16ch;
+  margin: 0;
+  color: var(--color-navy);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  text-wrap: balance;
+}
+
+.journey-heading > p {
+  max-width: 44ch;
+  margin: 0 0 0.2rem;
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+}
+
+.journey-carousel {
+  overflow: hidden;
+  border: 1px solid rgb(225 232 239 / 0.9);
+  border-radius: clamp(1rem, 2.2vw, 1.65rem);
+  background: #fff;
+  box-shadow: 0 28px 70px rgb(23 54 75 / 0.12), 0 3px 10px rgb(23 54 75 / 0.04);
+}
+
+.journey-slides {
+  position: relative;
+  min-height: clamp(31rem, 43vw, 37rem);
+  background: var(--color-navy);
+}
+
+.journey-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.16fr) minmax(18rem, 0.84fr);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(1.5rem);
+  transition: opacity 650ms ease, transform 850ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.journey-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.journey-slide-photo {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 100%;
+  place-items: center;
+  overflow: hidden;
+  margin: 0;
+  isolation: isolate;
+  background: linear-gradient(135deg, #172d3d, #29485b);
+}
+
+.journey-photo-backdrop {
+  position: absolute;
+  z-index: -1;
+  inset: -1rem;
+  background-image: var(--journey-photo);
+  background-position: center;
+  background-size: cover;
+  filter: blur(1.2rem);
+  opacity: 0.35;
+  transform: scale(1.04);
+}
+
+.journey-slide-photo::after {
+  position: absolute;
+  z-index: 1;
+  inset: auto 0 0;
+  height: 34%;
+  background: linear-gradient(transparent, rgb(11 27 38 / 0.72));
+  content: "";
+  pointer-events: none;
+}
+
+.journey-slide-photo img {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: clamp(0.4rem, 1.6vw, 1.35rem);
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgb(0 0 0 / 0.22));
+}
+
+.journey-slide-photo figcaption {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 2.5vw, 1.75rem);
+  left: clamp(1rem, 2.5vw, 2rem);
+  color: rgb(255 255 255 / 0.92);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.28);
+}
+
+.journey-slide-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 4.25rem);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(237 243 246 / 0.88), transparent 60%),
+    #fff;
+}
+
+.journey-slide-kicker {
+  margin-bottom: 1.1rem;
+  color: var(--color-brand-dark);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.journey-slide-count {
+  position: absolute;
+  top: clamp(1.25rem, 3vw, 2rem);
+  right: clamp(1.25rem, 3vw, 2rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #82919A;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.journey-slide-count i,
+.journey-status i {
+  display: inline-block;
+  width: 1.15rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.journey-slide-copy h3 {
+  max-width: 12ch;
+  margin: 0 0 1rem;
+  color: var(--color-navy);
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+.journey-slide-copy p {
+  max-width: 42ch;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.journey-slide-signoff {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: clamp(1.6rem, 3vw, 2.5rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.journey-slide-signoff::before {
+  width: 1.4rem;
+  height: 2px;
+  background: var(--color-brand);
+  content: "";
+}
+
+.journey-controls {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  min-height: 5.25rem;
+  padding: 0.6rem clamp(1rem, 3vw, 2rem);
+  background: #fff;
+}
+
+.journey-rotation,
+.journey-arrow {
+  display: inline-flex;
+  min-width: 2.8rem;
+  min-height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-navy);
+  transition: border-color var(--transition), background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.journey-rotation {
+  width: fit-content;
+  padding: 0 1rem;
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.journey-rotation > span:first-child {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.journey-rotation:hover,
+.journey-arrow:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-navy);
+  background: var(--color-navy);
+  color: #fff;
+}
+
+.journey-pagination {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.4rem);
+}
+
+.journey-arrow {
+  width: 2.9rem;
+  height: 2.9rem;
+  font-size: 1.2rem;
+}
+
+.journey-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.journey-dot {
+  display: grid;
+  width: 2rem;
+  height: 2.6rem;
+  place-items: center;
+}
+
+.journey-dot span {
+  display: block;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  background: #C6D0D7;
+  transition: width 360ms ease, background-color 360ms ease;
+}
+
+.journey-dot.is-current span {
+  width: 1.65rem;
+  background: var(--color-brand);
+}
+
+.journey-status {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 0.55rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.journey-status i { color: #B8C3CA; }
+
+@media (max-width: 767px) {
+  .journey-section { padding-block: 3.25rem; }
+  .journey-heading { display: block; }
+  .journey-heading h2 { max-width: 17ch; }
+  .journey-heading > p { margin-top: 0.9rem; }
+  .journey-slides { min-height: 39rem; }
+  .journey-slide {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(15rem, 53vw) minmax(0, 1fr);
+    transform: translateY(0.75rem);
+  }
+  .journey-slide-copy { padding: 1.5rem clamp(1.25rem, 6vw, 2rem) 1.6rem; }
+  .journey-slide-count { top: 1.5rem; right: 1.25rem; }
+  .journey-slide-kicker { max-width: calc(100% - 4.5rem); margin-bottom: 0.7rem; }
+  .journey-slide-copy h3 { max-width: 17ch; margin-bottom: 0.65rem; font-size: clamp(1.55rem, 6vw, 2rem); }
+  .journey-slide-copy p { font-size: var(--text-sm); line-height: 1.6; }
+  .journey-slide-signoff { margin-top: 1rem; padding-top: 0.7rem; }
+  .journey-controls { grid-template-columns: 1fr auto; gap: 0.5rem; min-height: 4.75rem; }
+  .journey-rotation { padding-inline: 0.8rem; }
+  .journey-pagination { gap: 0.55rem; }
+  .journey-status { display: none; }
+  .journey-arrow { width: 2.65rem; height: 2.65rem; min-width: 2.65rem; min-height: 2.65rem; }
+  .journey-dots { gap: 0.15rem; }
+}
+
+@media (max-width: 380px) {
+  .journey-slides { min-height: 41rem; }
+  .journey-controls { padding-inline: 0.65rem; }
+  .journey-rotation { gap: 0.4rem; font-size: 0.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-slide,
+  .journey-dot span,
+  .journey-arrow,
+  .journey-rotation { transition: none; }
+}

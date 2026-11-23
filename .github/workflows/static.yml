@@ -47,6 +47,8 @@ jobs:
           cp images/cardiac-care-table-meeting.webp images/dr-srikanth-nakka-batch-colleagues.webp images/dr-srikanth-nakka-heart-day-recognition.webp images/dr-srikanth-nakka-yashoda-health-session.webp _site/images/
           mkdir -p _site/images/services _site/vendor
           cp -R images/services/. _site/images/services/
+          mkdir -p _site/images/journey
+          cp -R images/journey/. _site/images/journey/
           cp -R vendor/bootstrap _site/vendor/
           cp -R know-your-heart _site/
       - name: Upload artifact
