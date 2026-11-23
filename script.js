@@ -37,17 +37,12 @@ if (year) year.textContent = new Date().getFullYear();
   const dots = Array.from(carousel.querySelectorAll('[data-journey-dot]'));
   const previous = carousel.querySelector('[data-journey-prev]');
   const next = carousel.querySelector('[data-journey-next]');
-  const toggle = carousel.querySelector('[data-journey-toggle]');
-  const toggleLabel = carousel.querySelector('[data-journey-toggle-label]');
   const status = carousel.querySelector('[data-journey-status]');
   const announcement = carousel.querySelector('[data-journey-announcement]');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const intervalMs = 6500;
   let activeIndex = 0;
   let timer = null;
-  let userPaused = false;
-  let pointerInside = false;
-  let focusInside = false;
   let touchStartX = null;
 
   if (slides.length < 2) return;
@@ -59,19 +54,8 @@ if (year) year.textContent = new Date().getFullYear();
 
   function startTimer() {
     stopTimer();
-    if (userPaused || pointerInside || focusInside || document.hidden || reducedMotion.matches) return;
+    if (document.hidden || reducedMotion.matches) return;
     timer = window.setInterval(() => showSlide(activeIndex + 1, false), intervalMs);
-  }
-
-  function updatePauseControl() {
-    const paused = userPaused || reducedMotion.matches;
-    if (!toggle) return;
-    toggle.hidden = reducedMotion.matches;
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
-    if (toggleLabel) toggleLabel.textContent = paused ? 'Play' : 'Pause';
-    const icon = toggle.querySelector('[aria-hidden="true"]');
-    if (icon) icon.textContent = paused ? '▶' : 'Ⅱ';
   }
 
   function showSlide(index, announceChange) {
@@ -95,16 +79,9 @@ if (year) year.textContent = new Date().getFullYear();
     startTimer();
   }
 
-  function setPaused(paused) {
-    userPaused = paused;
-    updatePauseControl();
-    startTimer();
-  }
-
   if (previous) previous.addEventListener('click', () => showSlide(activeIndex - 1, true));
   if (next) next.addEventListener('click', () => showSlide(activeIndex + 1, true));
   dots.forEach((dot) => dot.addEventListener('click', () => showSlide(Number(dot.dataset.journeyDot), true)));
-  if (toggle) toggle.addEventListener('click', () => setPaused(!userPaused));
 
   carousel.addEventListener('keydown', (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
@@ -114,16 +91,6 @@ if (year) year.textContent = new Date().getFullYear();
     } else if (event.key === 'ArrowLeft') {
       event.preventDefault();
       showSlide(activeIndex - 1, true);
-    }
-  });
-
-  carousel.addEventListener('mouseenter', () => { pointerInside = true; stopTimer(); });
-  carousel.addEventListener('mouseleave', () => { pointerInside = false; startTimer(); });
-  carousel.addEventListener('focusin', () => { focusInside = true; stopTimer(); });
-  carousel.addEventListener('focusout', (event) => {
-    if (!carousel.contains(event.relatedTarget)) {
-      focusInside = false;
-      startTimer();
     }
   });
 
@@ -142,12 +109,10 @@ if (year) year.textContent = new Date().getFullYear();
     else startTimer();
   });
   const handleMotionPreferenceChange = () => {
-    updatePauseControl();
     startTimer();
   };
   if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', handleMotionPreferenceChange);
   else if (reducedMotion.addListener) reducedMotion.addListener(handleMotionPreferenceChange);
-  updatePauseControl();
   startTimer();
 })();
 
