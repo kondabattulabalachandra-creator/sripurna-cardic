@@ -51,130 +51,245 @@ if (year) year.textContent = new Date().getFullYear();
   });
 })();
 
-/* Slowly advance the career photo carousel; native scrolling remains available. */
+/* Premium center-focus 3D card deck for the professional-journey photos. */
 (function () {
-  const viewport = document.querySelector('[data-career-carousel]');
-  const track = viewport && viewport.querySelector('[data-carousel-track]');
-  const gallery = track && track.querySelector('.career-gallery');
-  if (!viewport || !track || !gallery) return;
+  const carousel = document.querySelector('[data-career-carousel]');
+  const stage = carousel && carousel.querySelector('[data-carousel-stage]');
+  const gallery = stage && stage.querySelector('.career-gallery');
+  const cards = gallery ? Array.from(gallery.querySelectorAll('.career-photo')) : [];
+  const previousButton = carousel && carousel.querySelector('[data-carousel-prev]');
+  const nextButton = carousel && carousel.querySelector('[data-carousel-next]');
+  const toggleButton = carousel && carousel.querySelector('[data-carousel-toggle]');
+  const counter = carousel && carousel.querySelector('[data-carousel-counter]');
+  if (!carousel || !stage || !gallery || !cards.length || !previousButton || !nextButton || !toggleButton) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (reducedMotion.matches) return;
-  const duplicate = gallery.cloneNode(true);
-  duplicate.setAttribute('aria-hidden', 'true');
-  duplicate.classList.add('career-gallery-clone');
-  duplicate.querySelectorAll('a').forEach((link) => link.setAttribute('tabindex', '-1'));
-  duplicate.querySelectorAll('img').forEach((image) => {
-    image.alt = '';
-    image.loading = 'lazy';
-  });
-  track.appendChild(duplicate);
-
+  const transitionDuration = 1050;
+  const autoplayDelay = 5400;
+  const deckImageSizes = '(max-width: 1198px) 82vw, 980px';
+  const stateClasses = ['is-current', 'is-next', 'is-previous', 'is-hidden', 'is-leaving-left', 'is-leaving-right', 'is-resetting'];
+  let currentIndex = 0;
+  let autoTimer = 0;
+  let interactionTimer = 0;
+  let clickSuppressTimer = 0;
+  let suppressClick = false;
+  let swipeStartX = null;
+  let animating = false;
+  let manuallyPaused = false;
   let hoverPaused = false;
   let focusPaused = false;
   let interactionPaused = false;
   let visible = true;
-  let frameId = 0;
-  let lastTimestamp = 0;
-  let loopDistance = 0;
-  let interactionTimer = 0;
 
-  function canAdvance() {
-    return !reducedMotion.matches && !document.hidden && visible && !hoverPaused && !focusPaused && !interactionPaused;
+  function storeImageSources() {
+    cards.forEach((card) => {
+      const image = card.querySelector('img');
+      if (!image) return;
+      image.dataset.carouselSrc = image.getAttribute('src') || '';
+      image.dataset.carouselSrcset = image.getAttribute('srcset') || '';
+      image.loading = 'lazy';
+      image.removeAttribute('src');
+      image.removeAttribute('srcset');
+      image.removeAttribute('sizes');
+    });
   }
 
-  function stop() {
-    if (frameId) window.cancelAnimationFrame(frameId);
-    frameId = 0;
-    lastTimestamp = 0;
-  }
-
-  function step(timestamp) {
-    frameId = 0;
-    if (!canAdvance()) return;
-    if (lastTimestamp) {
-      const elapsed = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
-      viewport.scrollLeft += elapsed * 30;
-      if (loopDistance > 0 && viewport.scrollLeft >= loopDistance) {
-        viewport.scrollLeft -= loopDistance;
+  function loadImagesAround(index) {
+    const count = cards.length;
+    const needed = new Set([index, (index + 1) % count, (index - 1 + count) % count]);
+    cards.forEach((card, cardIndex) => {
+      const image = card.querySelector('img');
+      if (!image) return;
+      if (needed.has(cardIndex)) {
+        if (!image.hasAttribute('src') && image.dataset.carouselSrc) image.setAttribute('src', image.dataset.carouselSrc);
+        if (image.dataset.carouselSrcset) {
+          image.setAttribute('srcset', image.dataset.carouselSrcset);
+          image.setAttribute('sizes', deckImageSizes);
+        }
+      } else {
+        image.removeAttribute('src');
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
       }
-    }
-    lastTimestamp = timestamp;
-    frameId = window.requestAnimationFrame(step);
+    });
   }
 
-  function syncMotion() {
-    if (canAdvance()) {
-      if (!frameId) {
-        lastTimestamp = 0;
-        frameId = window.requestAnimationFrame(step);
+  function setAccessibleCard(index) {
+    cards.forEach((card, cardIndex) => {
+      const active = cardIndex === index;
+      const link = card.querySelector('a');
+      if (active) {
+        card.removeAttribute('aria-hidden');
+        card.removeAttribute('inert');
+        if (link) link.removeAttribute('tabindex');
+      } else {
+        card.setAttribute('aria-hidden', 'true');
+        card.setAttribute('inert', '');
+        if (link) link.setAttribute('tabindex', '-1');
       }
-    } else {
-      stop();
-    }
+    });
   }
 
-  function measureLoop() {
-    loopDistance = duplicate.getBoundingClientRect().left - gallery.getBoundingClientRect().left;
-    if (loopDistance > 0 && viewport.scrollLeft >= loopDistance) {
-      viewport.scrollLeft %= loopDistance;
-    }
-    syncMotion();
+  function updateCounter() {
+    if (!counter) return;
+    counter.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(cards.length).padStart(2, '0');
   }
 
-  function pauseAfterInteraction() {
+  function renderDeck() {
+    const previousIndex = (currentIndex - 1 + cards.length) % cards.length;
+    const nextIndex = (currentIndex + 1) % cards.length;
+    cards.forEach((card, index) => {
+      stateClasses.forEach((className) => card.classList.remove(className));
+      if (index === currentIndex) card.classList.add('is-current');
+      else if (index === nextIndex) card.classList.add('is-next');
+      else if (index === previousIndex) card.classList.add('is-previous');
+      else card.classList.add('is-hidden');
+    });
+    setAccessibleCard(currentIndex);
+    updateCounter();
+  }
+
+  function updateToggleButton() {
+    const icon = toggleButton.querySelector('span');
+    const reduced = reducedMotion.matches;
+    toggleButton.disabled = reduced;
+    toggleButton.setAttribute('aria-pressed', String(manuallyPaused));
+    toggleButton.setAttribute('aria-label', reduced
+      ? 'Automatic playback is off because reduced motion is enabled'
+      : manuallyPaused ? 'Resume automatic playback' : 'Pause automatic playback');
+    if (icon) icon.textContent = manuallyPaused ? '▶' : 'Ⅱ';
+  }
+
+  function canAutoplay() {
+    return !reducedMotion.matches && !document.hidden && visible && !manuallyPaused && !hoverPaused && !focusPaused && !interactionPaused && !animating;
+  }
+
+  function scheduleAutoplay() {
+    window.clearTimeout(autoTimer);
+    autoTimer = 0;
+    if (canAutoplay()) autoTimer = window.setTimeout(() => transitionTo(1), autoplayDelay);
+  }
+
+  function transitionTo(direction) {
+    if (animating || cards.length < 2) return;
+    window.clearTimeout(autoTimer);
+    autoTimer = 0;
+
+    const outgoingIndex = currentIndex;
+    const incomingIndex = (currentIndex + direction + cards.length) % cards.length;
+    const outgoing = cards[outgoingIndex];
+    const incoming = cards[incomingIndex];
+    loadImagesAround(incomingIndex);
+
+    outgoing.classList.add(direction > 0 ? 'is-leaving-left' : 'is-leaving-right');
+    outgoing.classList.remove('is-current');
+    incoming.classList.remove('is-next', 'is-previous', 'is-hidden');
+    incoming.classList.add('is-current');
+    currentIndex = incomingIndex;
+    setAccessibleCard(currentIndex);
+    updateCounter();
+    animating = true;
+
+    window.setTimeout(() => {
+      animating = false;
+      renderDeck();
+      outgoing.classList.add('is-resetting');
+      void outgoing.offsetWidth;
+      window.requestAnimationFrame(() => outgoing.classList.remove('is-resetting'));
+      scheduleAutoplay();
+    }, transitionDuration);
+  }
+
+  function pauseForInteraction() {
     interactionPaused = true;
     window.clearTimeout(interactionTimer);
-    syncMotion();
+    scheduleAutoplay();
   }
 
   function resumeAfterInteraction() {
     window.clearTimeout(interactionTimer);
     interactionTimer = window.setTimeout(() => {
       interactionPaused = false;
-      syncMotion();
-    }, 1800);
+      scheduleAutoplay();
+    }, 1900);
   }
 
-  viewport.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse') { hoverPaused = true; syncMotion(); }
+  storeImageSources();
+  loadImagesAround(currentIndex);
+  renderDeck();
+  carousel.classList.add('is-initializing', 'is-ready');
+  updateToggleButton();
+  window.requestAnimationFrame(() => window.requestAnimationFrame(() => carousel.classList.remove('is-initializing')));
+
+  carousel.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'mouse') { hoverPaused = true; scheduleAutoplay(); }
   });
-  viewport.addEventListener('pointerleave', (event) => {
-    if (event.pointerType === 'mouse') { hoverPaused = false; syncMotion(); }
+  carousel.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'mouse') { hoverPaused = false; scheduleAutoplay(); }
   });
-  viewport.addEventListener('focusin', () => { focusPaused = true; syncMotion(); });
-  viewport.addEventListener('focusout', (event) => {
-    if (!viewport.contains(event.relatedTarget)) {
+  carousel.addEventListener('focusin', () => { focusPaused = true; scheduleAutoplay(); });
+  carousel.addEventListener('focusout', (event) => {
+    if (!carousel.contains(event.relatedTarget)) {
       focusPaused = false;
-      syncMotion();
+      scheduleAutoplay();
     }
   });
-  viewport.addEventListener('pointerdown', pauseAfterInteraction);
-  window.addEventListener('pointerup', resumeAfterInteraction);
-  window.addEventListener('pointercancel', resumeAfterInteraction);
-  viewport.addEventListener('wheel', pauseAfterInteraction, { passive: true });
-  viewport.addEventListener('keydown', (event) => {
+  carousel.addEventListener('pointerdown', (event) => {
+    pauseForInteraction();
+    if ((event.pointerType === 'touch' || event.pointerType === 'pen') && !event.target.closest('.career-carousel-controls')) {
+      swipeStartX = event.clientX;
+    }
+  });
+  window.addEventListener('pointerup', (event) => {
+    if (swipeStartX !== null) {
+      const distance = event.clientX - swipeStartX;
+      if (Math.abs(distance) > 55) {
+        suppressClick = true;
+        window.clearTimeout(clickSuppressTimer);
+        clickSuppressTimer = window.setTimeout(() => { suppressClick = false; }, 450);
+        transitionTo(distance < 0 ? 1 : -1);
+      }
+    }
+    swipeStartX = null;
+    resumeAfterInteraction();
+  });
+  window.addEventListener('pointercancel', () => {
+    swipeStartX = null;
+    resumeAfterInteraction();
+  });
+  carousel.addEventListener('click', (event) => {
+    if (suppressClick) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, true);
+  carousel.addEventListener('keydown', (event) => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
-    pauseAfterInteraction();
-    viewport.scrollBy({
-      left: event.key === 'ArrowRight' ? 280 : -280,
-      behavior: reducedMotion.matches ? 'auto' : 'smooth'
-    });
+    transitionTo(event.key === 'ArrowRight' ? 1 : -1);
   });
-  document.addEventListener('visibilitychange', syncMotion);
-  reducedMotion.addEventListener('change', syncMotion);
-  window.addEventListener('resize', measureLoop, { passive: true });
+  previousButton.addEventListener('click', () => transitionTo(-1));
+  nextButton.addEventListener('click', () => transitionTo(1));
+  toggleButton.addEventListener('click', () => {
+    manuallyPaused = !manuallyPaused;
+    updateToggleButton();
+    scheduleAutoplay();
+  });
+  document.addEventListener('visibilitychange', scheduleAutoplay);
+  reducedMotion.addEventListener('change', () => {
+    updateToggleButton();
+    scheduleAutoplay();
+  });
 
   if ('IntersectionObserver' in window) {
     const visibilityObserver = new IntersectionObserver((entries) => {
       visible = entries.some((entry) => entry.isIntersecting);
-      syncMotion();
+      scheduleAutoplay();
     }, { threshold: 0.05 });
-    visibilityObserver.observe(viewport);
+    visibilityObserver.observe(carousel);
   }
 
-  measureLoop();
+  scheduleAutoplay();
 })();
 
 /* Appointment form (contact section) -> WhatsApp */
