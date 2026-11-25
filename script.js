@@ -99,17 +99,15 @@ if (year) year.textContent = new Date().getFullYear();
     cards.forEach((card, cardIndex) => {
       const image = card.querySelector('img');
       if (!image) return;
-      if (needed.has(cardIndex)) {
-        if (!image.hasAttribute('src') && image.dataset.carouselSrc) image.setAttribute('src', image.dataset.carouselSrc);
-        if (image.dataset.carouselSrcset) {
-          image.setAttribute('srcset', image.dataset.carouselSrcset);
-          image.setAttribute('sizes', deckImageSizes);
-        }
-      } else {
-        image.removeAttribute('src');
-        image.removeAttribute('srcset');
-        image.removeAttribute('sizes');
+      if (!needed.has(cardIndex)) return;
+
+      // Keep each image source once loaded so mobile browsers do not refetch it on later loops.
+      image.loading = 'eager';
+      if (!image.hasAttribute('src') && image.dataset.carouselSrc) image.setAttribute('src', image.dataset.carouselSrc);
+      if (image.dataset.carouselSrcset && image.getAttribute('srcset') !== image.dataset.carouselSrcset) {
+        image.setAttribute('srcset', image.dataset.carouselSrcset);
       }
+      if (image.getAttribute('sizes') !== deckImageSizes) image.setAttribute('sizes', deckImageSizes);
     });
   }
 
