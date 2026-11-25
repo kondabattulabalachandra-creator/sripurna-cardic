@@ -69,14 +69,11 @@ if (year) year.textContent = new Date().getFullYear();
   const stateClasses = ['is-current', 'is-next', 'is-previous', 'is-hidden', 'is-leaving-left', 'is-leaving-right', 'is-resetting'];
   let currentIndex = 0;
   let autoTimer = 0;
-  let interactionTimer = 0;
   let clickSuppressTimer = 0;
   let suppressClick = false;
   let swipeStartX = null;
   let animating = false;
   let manuallyPaused = false;
-  let hoverPaused = false;
-  let focusPaused = false;
   let interactionPaused = false;
   let visible = true;
 
@@ -142,27 +139,29 @@ if (year) year.textContent = new Date().getFullYear();
 
   function updateToggleButton() {
     const icon = toggleButton.querySelector('span');
-    const visibleLabel = toggleButton.querySelector('[data-carousel-toggle-label]');
     const reduced = reducedMotion.matches;
-    const playbackLabel = reduced ? 'Off' : manuallyPaused ? 'Play' : 'Pause';
     toggleButton.disabled = reduced;
     toggleButton.setAttribute('aria-pressed', String(manuallyPaused));
     toggleButton.setAttribute('aria-label', reduced
       ? 'Automatic playback is off because reduced motion is enabled'
       : manuallyPaused ? 'Resume automatic playback' : 'Pause automatic playback');
     if (icon) icon.textContent = manuallyPaused ? '▶' : 'Ⅱ';
-    if (visibleLabel) visibleLabel.textContent = playbackLabel;
-    toggleButton.title = reduced ? 'Automatic playback disabled by reduced motion setting' : playbackLabel + ' automatic photo playback';
   }
 
   function canAutoplay() {
-    return !reducedMotion.matches && !document.hidden && visible && !manuallyPaused && !hoverPaused && !focusPaused && !interactionPaused && !animating;
+    return !reducedMotion.matches && !document.hidden && visible && !manuallyPaused && !interactionPaused;
   }
 
-  function scheduleAutoplay() {
-    window.clearTimeout(autoTimer);
-    autoTimer = 0;
-    if (canAutoplay()) autoTimer = window.setTimeout(() => transitionTo(1), autoplayDelay);
+  function scheduleAutoplay(delay = autoplayDelay, reset = false) {
+    if (reset || !canAutoplay()) {
+      window.clearTimeout(autoTimer);
+      autoTimer = 0;
+    }
+    if (!canAutoplay() || autoTimer) return;
+    autoTimer = window.setTimeout(() => {
+      autoTimer = 0;
+      transitionTo(1);
+    }, delay);
   }
 
   function transitionTo(direction) {
@@ -194,18 +193,22 @@ if (year) year.textContent = new Date().getFullYear();
     }, transitionDuration);
   }
 
+  function navigateManually(direction) {
+    interactionPaused = false;
+    transitionTo(direction);
+    scheduleAutoplay(autoplayDelay, true);
+  }
+
   function pauseForInteraction() {
     interactionPaused = true;
-    window.clearTimeout(interactionTimer);
-    scheduleAutoplay();
+    window.clearTimeout(autoTimer);
+    autoTimer = 0;
   }
 
   function resumeAfterInteraction() {
-    window.clearTimeout(interactionTimer);
-    interactionTimer = window.setTimeout(() => {
-      interactionPaused = false;
-      scheduleAutoplay();
-    }, 1900);
+    if (!interactionPaused) return;
+    interactionPaused = false;
+    scheduleAutoplay(autoplayDelay, true);
   }
 
   storeImageSources();
@@ -215,19 +218,6 @@ if (year) year.textContent = new Date().getFullYear();
   updateToggleButton();
   window.requestAnimationFrame(() => window.requestAnimationFrame(() => carousel.classList.remove('is-initializing')));
 
-  carousel.addEventListener('pointerenter', (event) => {
-    if (event.pointerType === 'mouse') { hoverPaused = true; scheduleAutoplay(); }
-  });
-  carousel.addEventListener('pointerleave', (event) => {
-    if (event.pointerType === 'mouse') { hoverPaused = false; scheduleAutoplay(); }
-  });
-  carousel.addEventListener('focusin', () => { focusPaused = true; scheduleAutoplay(); });
-  carousel.addEventListener('focusout', (event) => {
-    if (!carousel.contains(event.relatedTarget)) {
-      focusPaused = false;
-      scheduleAutoplay();
-    }
-  });
   carousel.addEventListener('pointerdown', (event) => {
     pauseForInteraction();
     if ((event.pointerType === 'touch' || event.pointerType === 'pen') && !event.target.closest('.career-carousel-controls')) {
@@ -241,7 +231,9 @@ if (year) year.textContent = new Date().getFullYear();
         suppressClick = true;
         window.clearTimeout(clickSuppressTimer);
         clickSuppressTimer = window.setTimeout(() => { suppressClick = false; }, 450);
-        transitionTo(distance < 0 ? 1 : -1);
+        navigateManually(distance < 0 ? 1 : -1);
+        swipeStartX = null;
+        return;
       }
     }
     swipeStartX = null;
@@ -260,14 +252,14 @@ if (year) year.textContent = new Date().getFullYear();
   carousel.addEventListener('keydown', (event) => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
-    transitionTo(event.key === 'ArrowRight' ? 1 : -1);
+    navigateManually(event.key === 'ArrowRight' ? 1 : -1);
   });
-  previousButton.addEventListener('click', () => transitionTo(-1));
-  nextButton.addEventListener('click', () => transitionTo(1));
+  previousButton.addEventListener('click', () => navigateManually(-1));
+  nextButton.addEventListener('click', () => navigateManually(1));
   toggleButton.addEventListener('click', () => {
     manuallyPaused = !manuallyPaused;
     updateToggleButton();
-    scheduleAutoplay();
+    scheduleAutoplay(autoplayDelay, true);
   });
   document.addEventListener('visibilitychange', scheduleAutoplay);
   reducedMotion.addEventListener('change', () => {
