@@ -1511,6 +1511,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 .gallery-card-portrait > a { aspect-ratio: 3 / 4; }
 .gallery-card-portrait img { object-fit: contain; background: #E6EEF2; }
 .gallery-card-portrait:hover img { transform: none; }
+.gallery-card-wide > a { aspect-ratio: 1916 / 915; }
 
 @media (min-width: 1024px) {
   .gallery-card-portrait { grid-column: span 3; grid-row: span 3; }
