@@ -31,7 +31,7 @@ if (year) year.textContent = new Date().getFullYear();
 /* Reveal career gallery cards as they enter view. */
 (function () {
   const gallery = document.querySelector('.career-gallery');
-  if (!gallery || !('IntersectionObserver' in window)) return;
+  if (!gallery || gallery.closest('[data-career-carousel]') || !('IntersectionObserver' in window)) return;
 
   const cards = Array.from(gallery.querySelectorAll('[data-career-reveal]'));
   if (!cards.length) return;
@@ -49,6 +49,132 @@ if (year) year.textContent = new Date().getFullYear();
     card.style.setProperty('--reveal-delay', (index % 3) * 70 + 'ms');
     observer.observe(card);
   });
+})();
+
+/* Slowly advance the career photo carousel; native scrolling remains available. */
+(function () {
+  const viewport = document.querySelector('[data-career-carousel]');
+  const track = viewport && viewport.querySelector('[data-carousel-track]');
+  const gallery = track && track.querySelector('.career-gallery');
+  if (!viewport || !track || !gallery) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reducedMotion.matches) return;
+  const duplicate = gallery.cloneNode(true);
+  duplicate.setAttribute('aria-hidden', 'true');
+  duplicate.classList.add('career-gallery-clone');
+  duplicate.querySelectorAll('a').forEach((link) => link.setAttribute('tabindex', '-1'));
+  duplicate.querySelectorAll('img').forEach((image) => {
+    image.alt = '';
+    image.loading = 'lazy';
+  });
+  track.appendChild(duplicate);
+
+  let hoverPaused = false;
+  let focusPaused = false;
+  let interactionPaused = false;
+  let visible = true;
+  let frameId = 0;
+  let lastTimestamp = 0;
+  let loopDistance = 0;
+  let interactionTimer = 0;
+
+  function canAdvance() {
+    return !reducedMotion.matches && !document.hidden && visible && !hoverPaused && !focusPaused && !interactionPaused;
+  }
+
+  function stop() {
+    if (frameId) window.cancelAnimationFrame(frameId);
+    frameId = 0;
+    lastTimestamp = 0;
+  }
+
+  function step(timestamp) {
+    frameId = 0;
+    if (!canAdvance()) return;
+    if (lastTimestamp) {
+      const elapsed = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
+      viewport.scrollLeft += elapsed * 30;
+      if (loopDistance > 0 && viewport.scrollLeft >= loopDistance) {
+        viewport.scrollLeft -= loopDistance;
+      }
+    }
+    lastTimestamp = timestamp;
+    frameId = window.requestAnimationFrame(step);
+  }
+
+  function syncMotion() {
+    if (canAdvance()) {
+      if (!frameId) {
+        lastTimestamp = 0;
+        frameId = window.requestAnimationFrame(step);
+      }
+    } else {
+      stop();
+    }
+  }
+
+  function measureLoop() {
+    loopDistance = duplicate.getBoundingClientRect().left - gallery.getBoundingClientRect().left;
+    if (loopDistance > 0 && viewport.scrollLeft >= loopDistance) {
+      viewport.scrollLeft %= loopDistance;
+    }
+    syncMotion();
+  }
+
+  function pauseAfterInteraction() {
+    interactionPaused = true;
+    window.clearTimeout(interactionTimer);
+    syncMotion();
+  }
+
+  function resumeAfterInteraction() {
+    window.clearTimeout(interactionTimer);
+    interactionTimer = window.setTimeout(() => {
+      interactionPaused = false;
+      syncMotion();
+    }, 1800);
+  }
+
+  viewport.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'mouse') { hoverPaused = true; syncMotion(); }
+  });
+  viewport.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'mouse') { hoverPaused = false; syncMotion(); }
+  });
+  viewport.addEventListener('focusin', () => { focusPaused = true; syncMotion(); });
+  viewport.addEventListener('focusout', (event) => {
+    if (!viewport.contains(event.relatedTarget)) {
+      focusPaused = false;
+      syncMotion();
+    }
+  });
+  viewport.addEventListener('pointerdown', pauseAfterInteraction);
+  window.addEventListener('pointerup', resumeAfterInteraction);
+  window.addEventListener('pointercancel', resumeAfterInteraction);
+  viewport.addEventListener('wheel', pauseAfterInteraction, { passive: true });
+  viewport.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    pauseAfterInteraction();
+    viewport.scrollBy({
+      left: event.key === 'ArrowRight' ? 280 : -280,
+      behavior: reducedMotion.matches ? 'auto' : 'smooth'
+    });
+  });
+  document.addEventListener('visibilitychange', syncMotion);
+  reducedMotion.addEventListener('change', syncMotion);
+  window.addEventListener('resize', measureLoop, { passive: true });
+
+  if ('IntersectionObserver' in window) {
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      visible = entries.some((entry) => entry.isIntersecting);
+      syncMotion();
+    }, { threshold: 0.05 });
+    visibilityObserver.observe(viewport);
+  }
+
+  measureLoop();
 })();
 
 /* Appointment form (contact section) -> WhatsApp */
