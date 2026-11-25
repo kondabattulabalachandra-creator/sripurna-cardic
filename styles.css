@@ -2444,8 +2444,8 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(86%, 1040px);
-  max-width: calc(100% - 1rem);
+  width: min(94%, 1080px);
+  max-width: calc(100% - 0.5rem);
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 0.88);
@@ -2456,7 +2456,7 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   transform: translate3d(-50%, -34%, -260px) scale(0.56);
   transform-origin: center center;
   transform-style: preserve-3d;
-  transition: transform 1050ms cubic-bezier(0.22, 1, 0.36, 1), opacity 760ms ease, filter 1050ms ease, box-shadow 650ms ease;
+  transition: transform 850ms cubic-bezier(0.22, 1, 0.36, 1), opacity 650ms ease, filter 850ms ease, box-shadow 550ms ease;
   will-change: transform, opacity;
   pointer-events: none;
 }
@@ -2475,9 +2475,9 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   width: 100%;
   height: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
-  transition: transform 1050ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .career-carousel.is-ready .career-gallery .career-photo.is-current {
@@ -2572,35 +2572,48 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
 
 .career-carousel-controls {
   display: none;
+  width: fit-content;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  margin-top: 1.1rem;
+  gap: 0.65rem;
+  margin: 1.1rem auto 0;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid rgb(255 255 255 / 0.92);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.82);
+  box-shadow: 0 10px 28px rgb(23 54 75 / 0.12);
+  backdrop-filter: blur(12px);
 }
 
 .career-carousel-button {
   display: inline-grid;
-  width: 2.9rem;
-  height: 2.9rem;
+  width: 3.2rem;
+  height: 3.2rem;
   place-items: center;
   padding: 0;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgb(255 255 255 / 0.72);
   border-radius: 50%;
-  color: var(--color-navy);
-  background: var(--color-bg-white);
-  box-shadow: var(--shadow);
+  color: #fff;
+  background: linear-gradient(145deg, #23485D, #142F42);
+  box-shadow: 0 9px 24px rgb(23 54 75 / 0.24), inset 0 1px 0 rgb(255 255 255 / 0.16);
   cursor: pointer;
   font: inherit;
-  font-size: 1.35rem;
+  font-size: 1.55rem;
+  font-weight: 800;
   line-height: 1;
-  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
 .career-carousel-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  border-color: var(--color-navy);
+  transform: translateY(-2px) scale(1.06);
+  border-color: #fff;
   color: #fff;
-  background: var(--color-navy);
+  background: linear-gradient(145deg, var(--color-brand), var(--color-brand-dark));
+  box-shadow: 0 13px 28px rgb(23 54 75 / 0.28);
+}
+
+.career-carousel-button:active:not(:disabled) {
+  transform: scale(0.96);
 }
 
 .career-carousel-button:focus-visible {
@@ -2613,21 +2626,13 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   opacity: 0.55;
 }
 
-.career-carousel-counter {
-  min-width: 4.25rem;
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  font-variant-numeric: tabular-nums;
-  text-align: center;
-}
-
 @media (max-width: 767px) {
   .career-carousel.is-ready .career-carousel-stage {
     aspect-ratio: 1.3 / 1;
   }
 
   .career-carousel.is-ready .career-gallery .career-photo {
-    width: 90%;
+    width: 96%;
   }
 
   .career-carousel.is-ready .career-gallery .career-photo figcaption {
@@ -2640,13 +2645,14 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   }
 
   .career-carousel-controls {
-    gap: 0.65rem;
-    margin-top: 0.85rem;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+    padding: 0.25rem 0.35rem;
   }
 
   .career-carousel-button {
-    width: 2.65rem;
-    height: 2.65rem;
+    width: 2.9rem;
+    height: 2.9rem;
   }
 }
 

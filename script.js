@@ -60,13 +60,12 @@ if (year) year.textContent = new Date().getFullYear();
   const previousButton = carousel && carousel.querySelector('[data-carousel-prev]');
   const nextButton = carousel && carousel.querySelector('[data-carousel-next]');
   const toggleButton = carousel && carousel.querySelector('[data-carousel-toggle]');
-  const counter = carousel && carousel.querySelector('[data-carousel-counter]');
   if (!carousel || !stage || !gallery || !cards.length || !previousButton || !nextButton || !toggleButton) return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const transitionDuration = 1050;
-  const autoplayDelay = 5400;
-  const deckImageSizes = '(max-width: 1198px) 82vw, 980px';
+  const transitionDuration = 850;
+  const autoplayDelay = 3400;
+  const deckImageSizes = '(max-width: 1198px) 90vw, 1070px';
   const stateClasses = ['is-current', 'is-next', 'is-previous', 'is-hidden', 'is-leaving-left', 'is-leaving-right', 'is-resetting'];
   let currentIndex = 0;
   let autoTimer = 0;
@@ -130,11 +129,6 @@ if (year) year.textContent = new Date().getFullYear();
     });
   }
 
-  function updateCounter() {
-    if (!counter) return;
-    counter.textContent = String(currentIndex + 1).padStart(2, '0') + ' / ' + String(cards.length).padStart(2, '0');
-  }
-
   function renderDeck() {
     const previousIndex = (currentIndex - 1 + cards.length) % cards.length;
     const nextIndex = (currentIndex + 1) % cards.length;
@@ -146,7 +140,6 @@ if (year) year.textContent = new Date().getFullYear();
       else card.classList.add('is-hidden');
     });
     setAccessibleCard(currentIndex);
-    updateCounter();
   }
 
   function updateToggleButton() {
@@ -187,7 +180,6 @@ if (year) year.textContent = new Date().getFullYear();
     incoming.classList.add('is-current');
     currentIndex = incomingIndex;
     setAccessibleCard(currentIndex);
-    updateCounter();
     animating = true;
 
     window.setTimeout(() => {
