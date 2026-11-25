@@ -142,13 +142,17 @@ if (year) year.textContent = new Date().getFullYear();
 
   function updateToggleButton() {
     const icon = toggleButton.querySelector('span');
+    const visibleLabel = toggleButton.querySelector('[data-carousel-toggle-label]');
     const reduced = reducedMotion.matches;
+    const playbackLabel = reduced ? 'Off' : manuallyPaused ? 'Play' : 'Pause';
     toggleButton.disabled = reduced;
     toggleButton.setAttribute('aria-pressed', String(manuallyPaused));
     toggleButton.setAttribute('aria-label', reduced
       ? 'Automatic playback is off because reduced motion is enabled'
       : manuallyPaused ? 'Resume automatic playback' : 'Pause automatic playback');
     if (icon) icon.textContent = manuallyPaused ? '▶' : 'Ⅱ';
+    if (visibleLabel) visibleLabel.textContent = playbackLabel;
+    toggleButton.title = reduced ? 'Automatic playback disabled by reduced motion setting' : playbackLabel + ' automatic photo playback';
   }
 
   function canAutoplay() {
