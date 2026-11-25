@@ -64,7 +64,7 @@ if (year) year.textContent = new Date().getFullYear();
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const transitionDuration = 850;
-  const autoplayDelay = 3400;
+  const autoplayDelay = 2500;
   const deckImageSizes = '(max-width: 1198px) 90vw, 1070px';
   const stateClasses = ['is-current', 'is-next', 'is-previous', 'is-hidden', 'is-leaving-left', 'is-leaving-right', 'is-resetting'];
   let currentIndex = 0;
