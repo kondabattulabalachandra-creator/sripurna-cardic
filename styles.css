@@ -1233,6 +1233,11 @@ h4 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
   align-items: start;
 }
 
+.doctor-grid-text-only {
+  grid-template-columns: minmax(0, 900px);
+  justify-content: center;
+}
+
 .doctor-profile-photo {
   overflow: hidden;
   border: 1px solid var(--color-border);
