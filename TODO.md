@@ -15,3 +15,4 @@
 - [x] **Make the full-profile invitation prominent and curiosity-driving.** Present “View Dr. Nakka’s Full Profile” as a visually striking CTA that encourages visitors to explore his complete professional journey, expertise and achievements.
 - [x] **Add the supplied family photograph to Dr. Nakka’s profile.** Publish the provided image on `/dr-srikanth-nakka/` with descriptive alternative text and a caption.
 - [x] **Remove the standalone patient-education experience completely.** Remove its pages, scripts, styles, data, and image from the repository; remove related home/profile navigation and teaser links; stop publishing its files; and remove its sitemap entries.
+- [x] **Add the supplied DM Cardiology batchmates photo to the homepage Career gallery.** Use a polished heading and context about the demanding phase of the course, preserve the user-provided doctor names, and publish the full-size image with descriptive alt text and an accessible caption.
