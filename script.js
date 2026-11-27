@@ -23,6 +23,14 @@ if (menuToggle && primaryNav) {
       menuToggle.setAttribute('aria-label', 'Open navigation');
     }
   });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !primaryNav.classList.contains('open')) return;
+    primaryNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Open navigation');
+    menuToggle.focus();
+  });
 }
 
 const year = document.getElementById('year');
@@ -64,10 +72,11 @@ if (year) year.textContent = new Date().getFullYear();
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const transitionDuration = 850;
-  const autoplayDelay = 2500;
+  const autoplayDelay = 5000;
   const deckImageSizes = '(max-width: 1198px) 90vw, 1070px';
   const stateClasses = ['is-current', 'is-next', 'is-previous', 'is-hidden', 'is-leaving-left', 'is-leaving-right', 'is-resetting'];
-  let currentIndex = 0;
+  let currentIndex = cards.findIndex((card) => card.hasAttribute('data-carousel-featured'));
+  if (currentIndex < 0) currentIndex = 0;
   let autoTimer = 0;
   let clickSuppressTimer = 0;
   let suppressClick = false;
